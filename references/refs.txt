@@ -1,0 +1,14 @@
+[1] A model of a trust-based recommendation system on a social network -- http://link.springer.com/article/10.1007/s10458-007-9021-x
+[2] Expertise recommender: a flexible recommendation system and architecture -- http://dl.acm.org/citation.cfm?id=358994
+[3] A music recommendation system based on music data grouping and user interests -- http://pdf.aminer.org/000/095/202/a_music_recommendation_system_based_on_music_data_grouping_and.pdf
+[4] Feature weighting in content based recommendation system using social network analysis -- http://dl.acm.org/citation.cfm?id=1367646
+[5] An intelligent fuzzy-based recommendation system for consumer electronic products -- http://www.sciencedirect.com/science/article/pii/S0957417406001369
+[6] Generating Predictive Movie Recommendations from Trust in Social Networks -- http://link.springer.com/chapter/10.1007/11755593_8
+[7] Trust and nuanced profile similarity in online social networks -- http://dl.acm.org/citation.cfm?id=1594174
+[8] Netflix Grand Prize, BellKor
+[9] Netflix Grand Prize, BigChaos
+[10] Netflix Grand Prize, PragmaticTheory
+[11] A latent model for collaborative filtering -- http://www.sciencedirect.com/science/article/pii/S0888613X11001654
+[12] Bayesian Networks for Collaborative Filtering
+[nn] Spread of decisions in the corporate board network -- http://arxiv.org/abs/cond-mat/0312228
+[15] Social information retrieval
