@@ -1,0 +1,50 @@
+% Chapter 2
+
+\chapter{Survey} % Main chapter title
+
+\label{Chapter2} % For referencing the chapter elsewhere, use \ref{Chapter1} 
+
+\lhead{Chapter 2. \emph{Survey}} % This is for the header on each page - perhaps a shortened title
+
+%----------------------------------------------------------------------------------------
+
+% \emph{Review of relevant literature; review of similar software products or tools.}
+
+\section{Relevant literature} % (fold)
+\label{sec:relevant_literature}
+
+The task of improving recommendations through sentiment analysis of social media data requires digging into several fields of study.
+
+Some people have attempted the same task as in this thesis, albeit with another type of social data.
+Singh et al. \cite{Singh2011} investigated a ``formulation, where [they] combined the content-based approach with a sentiment analysis task to improve the recommendation results.''
+Their approach is very similar to our approach, but differs in two important ways:
+\begin{enumerate}
+  \item It uses user reviews from IMDB as content source, and not a more general source of sentiment-carrying content -- as in our case, with Twitter.
+  \item It is not designed to enhance presupplied recommendations, but rather to generate its own based on genre input by calculating content similarity.
+\end{enumerate}
+
+As we're looking at data from Twitter, the sentiment analysis task is a bit different than usual, as it needs to operate on texts that are all less than 140 characters long. More often than not, we will in fact need to work with texts that are merely one or two sentences long.
+Cho \& Kang \cite{ChoKang2012} ``propose a method of classifying tendencies and opinions in texts of multiple sentence length extracted from social media and covering both formal and informal vocabularies''.
+We'll be taking a closer look at this method for the actual sentiment analysis task.
+
+
+% http://blog.datumbox.com/how-to-build-your-own-twitter-sentiment-analysis-tool/
+
+\emph{@TODO More.}
+
+% section relevant_literature (end)
+
+\section{Similar applications} % (fold)
+\label{sec:similar_applications}
+
+What spawned the idea of using an unpersonal social service like Twitter as a content source for filtering content is that Netflix recently rolled out personal social recommendations of their content.
+For this they use Facebook.
+
+One huge limitation to the Facebook approach is that Facebook doesn't expose how ``close'' you are to your various friends.
+People take on
+
+Content sharing patterns (Social influence and the diffusion of user-created content): \cite{Bakshy2009}.
+
+% section similar_applications (end)
+
+%----------------------------------------------------------------------------------------

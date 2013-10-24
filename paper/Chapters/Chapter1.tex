@@ -1,0 +1,83 @@
+% Chapter 1
+
+\chapter{Introduction} % Main chapter title
+
+\label{Chapter1} % For referencing the chapter elsewhere, use \ref{Chapter1} 
+
+\lhead{Chapter 1. \emph{Introduction}} % This is for the header on each page - perhaps a shortened title
+
+%----------------------------------------------------------------------------------------
+
+% \emph{Context; motivation for the project; problem statement; outline of dissertation.}
+
+\section{Motivation}
+
+% Movie recommendations have come a long way, but still they seem to be lacking in a few ways.
+% 
+% Most services supplying automated recommendations
+% \begin{enumerate}
+%   \item don't provide the context and background for each recommendation
+%   \item don't consider public opinion and hype
+% \end{enumerate}
+
+Recommendation systems, as seen in commercial products in 2013, seldom provide any context to go with its recommended products other than statements like ``Because you watched X you might like Y.''
+
+Netflix, the movie subscription service, quite recently began suggesting movies based on what your Facebook friends had watched -- thereby taking a solid step in the direction of social recommendations.
+These suggestions, however, have one underlying assumption that may not always apply:
+what the displayed friend has watched is relevant to your choice of content.
+
+Furthermore, the social components in Netflix's recommendations are \emph{personal}.
+This approach has some clear advantages in that it uses \emph{your} social network as a basis for suggesting content, but there are also some downsides to this:
+
+\begin{itemize}
+  \item They don't take \emph{novelty} into consideration.
+  \item They don't take \emph{hype} into consideration.
+  \item They leverage only a microscopic portion of the available opinions on content that is available in social media.
+\end{itemize}
+
+These personal suggestions seems to be a trend in contemporary approaches to social recommendations.
+We'll have a look at something a bit different.
+
+% \subsubsection{A different approach to social media recommendations}
+
+There are other sources of social data that do not fit into the ``personal'' model.
+In this thesis we'll have a look at one of the largest sources of unpersonal social media content today: Twitter.
+
+Micro-blogging services such as Twitter have enormous amounts of data on almost every topic imaginable.
+Content is limited in length, and users react to each others' content by ``re-tweeting'', ``favoriting'' or ``replying to'' it.
+This leaves us with a source of textual data that is:
+
+\begin{description}
+  \item[Instant] Users express reactions to events as they experience them.
+  \item[Weighted] Users weigh each others' content by interacting with it.
+  \item[Concise] Due to limitations on content length, users must express themselves concisely.
+\end{description}
+
+Furthermore, the Twitter search API\footnote{\url{https://dev.twitter.com/docs/api/1.1/get/search/tweets}} supports returning both \emph{popular} and \emph{recent} content, or a mix of the two.
+This enables two interesting approaches to both filtering and annotating the recommended content, in that we can treat popular comments and recent comments separately.
+
+%----------------------------------------------------------------------------------------
+
+\section{Research Questions}
+
+In this thesis, I'm not looking into the task of \emph{generating new recommendations}, but rather trying to \emph{improve a set of recommendations} taking copious social media data into account.
+
+We will have a look at ways of using copious social media data to \emph{annotate} and \emph{filter} sets of recommendations.
+
+More specifically, the aim is to find answers to the following questions:
+
+\begin{enumerate}
+  \item Can sentiment analysis of large quantities of unpersonal social media data be used to effectively filter recommendations?
+  \item Do users want context associated with recommendations? Can filtered unpersonal social media data serve this role?
+  \item How do we evaluate our efforts in order to answer the above questions?
+\end{enumerate}
+
+%----------------------------------------------------------------------------------------
+
+\section{Overview and Summary}
+
+We will look at improving an intermediate step in a hypothetical recommendation pipeline, filtering and/or annotating recommended content.
+
+\emph{@TODO Add more overview and summary information as it comes into existence.}
+
+%----------------------------------------------------------------------------------------

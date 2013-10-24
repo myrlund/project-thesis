@@ -1,0 +1,54 @@
+\begin{thebibliography}{6}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Singh et~al.(2011)Singh, Mukherjee, and Mehta]{Singh2011}
+Vivek~Kumar Singh, Mousumi Mukherjee, and Ghanshyam~Kumar Mehta.
+\newblock Combining a content filtering heuristic and sentiment analysis for
+  movie recommendations.
+\newblock In K.R. Venugopal and L.M. Patnaik, editors, \emph{Computer Networks
+  and Intelligent Computing}, volume 157 of \emph{Communications in Computer
+  and Information Science}, pages 659--664. Springer Berlin Heidelberg, 2011.
+\newblock ISBN 978-3-642-22785-1.
+\newblock \doi{10.1007/978-3-642-22786-8_83}.
+\newblock URL \url{http://dx.doi.org/10.1007/978-3-642-22786-8_83}.
+
+\bibitem[Cho and Kang(2012)]{ChoKang2012}
+Sang-Hyun Cho and Hang-Bong Kang.
+\newblock Statistical text analysis and sentiment classification in social
+  media.
+\newblock In \emph{Systems, Man, and Cybernetics (SMC), 2012 IEEE International
+  Conference on}, pages 1112--1117, 2012.
+\newblock \doi{10.1109/ICSMC.2012.6377880}.
+
+\bibitem[Bakshy et~al.(2009)Bakshy, Karrer, and Adamic]{Bakshy2009}
+Eytan Bakshy, Brian Karrer, and Lada~A. Adamic.
+\newblock Social influence and the diffusion of user-created content.
+\newblock In \emph{Proceedings of the 10th ACM conference on Electronic
+  commerce}, EC '09, pages 325--334, New York, NY, USA, 2009. ACM.
+\newblock ISBN 978-1-60558-458-4.
+\newblock \doi{10.1145/1566374.1566421}.
+\newblock URL \url{http://doi.acm.org/10.1145/1566374.1566421}.
+
+\bibitem[Oard and Kim(1998)]{Oard98implicitfeedback}
+Douglas Oard and Jinmook Kim.
+\newblock Implicit feedback for recommender systems.
+\newblock In \emph{in Proceedings of the AAAI Workshop on Recommender Systems},
+  pages 81--83, 1998.
+
+\bibitem[Oard and Kim(2001)]{Oard01modelinginformation}
+Douglas~W. Oard and Jinmook Kim.
+\newblock Modeling information content using observable behavior, 2001.
+
+\bibitem[Kelly and Teevan(2003)]{Kelly03implicitfeedback}
+Diane Kelly and Jaime Teevan.
+\newblock Implicit feedback for inferring user preference: a bibliography.
+\newblock \emph{SIGIR Forum}, 37\penalty0 (2):\penalty0 18--28, September 2003.
+\newblock ISSN 0163-5840.
+\newblock \doi{10.1145/959258.959260}.
+\newblock URL \url{http://doi.acm.org/10.1145/959258.959260}.
+
+\end{thebibliography}

@@ -1,0 +1,72 @@
+% Chapter 3
+
+\chapter{Requirements} % Main chapter title
+
+\label{Chapter3} % For referencing the chapter elsewhere, use \ref{Chapter1} 
+
+\lhead{Chapter 3. \emph{Requirements}} % This is for the header on each page - perhaps a shortened title
+
+% \emph{How requirements were captured; discussion of major requirements (referring to Appendix A for details).}
+% 
+% \emph{Forklar hvordan du satt opp kravene.}
+% 
+% \emph{Men ikke ha med en fullstendig oversikt over kravene her!}
+
+Although the methods described in this paper aims to be as agnostic as possible with regards to what type of sentiment carrying input is used, we have selected the microblogging service Twitter -- and the available Twitter data has some specific qualities we'll try to make use of to improve the quality of our results.
+
+\section{Relevant Qualities of Twitter Data} % (fold)
+\label{sec:relevant_qualities_of_twitter_data}
+
+As previously mentioned, ``Tweets'' can be \emph{favorited}, \emph{retweeted}, and \emph{replied to}.
+Additionally, we can tell how big reach an author has by counting the number of \emph{followers} he/she has, and use this as another indication of content popularity.
+
+We want to be able to use the data as a source of implicit ratings. To be able to, we need to quantify the significance of these verbs.
+Oard~and~Kim~\cite{Oard98implicitfeedback,Oard01modelinginformation} and Kelly~and~Teevan~\cite{Kelly03implicitfeedback} have developed a framework for classification of online (@TODO)...
+We adapt it to the domain of Twitter data, and wind up with table~\ref{tab:behavior_class}.
+
+\begin{table}[h]
+  \begin{center}
+    \begin{tabular}{|llcl|}
+      \hline
+      \textbf{Original} & \textbf{Ours} & & \textbf{Action} \\
+      \hline
+      Create    & Create   & $\rightarrow$ & Tweet \\
+      \hline
+      Examine   & Consume  & $\rightarrow$ & Follow \\
+      \hline
+      Annotate  & Evaluate & $\rightarrow$ & Reply \\
+      \hline
+      Retain    & Endorse  & $\rightarrow$ & Favorite \\
+      \hline
+      Reference & Forward  & $\rightarrow$ & Retweet \\
+      \hline
+    \end{tabular}
+  \end{center}
+  \caption{Classification of microblogging behavior}
+  \label{tab:behavior_class}
+\end{table}
+
+To clarify the classifications of table~\ref{tab:behavior_class}, let's break the terms down.
+
+\begin{description}
+  \item[Tweet]
+    A user posts content to Twitter, in the form of a new post.
+    A Tweet can have a maximum of 140 characters.
+    Due to the size restrictions, tweets often contain links to websites.
+  \item[Follow]
+    Users consume each others' content by following each other.
+    The number of followers users have range from 0 to more than 40 million.
+    Following is a one-way relationship, and there is often a big difference in the number of users following and being followed by a user.
+  \item[Reply]
+    Users can mention each other in tweets by prepending a username with ``@''.
+    This same mechanism is used to reply to others' content.
+    When replying, the content the Tweet was replying to is stored along with the reply, forming a conversation tree.
+  \item[Favorite]
+    Users can favorite content, which notifies the content owner and boosts the content in search results etc.
+    It is also trivial to extract all content a particular user has favorited.
+  \item[Retweet]
+    When a user chooses to retweet content, that content is ``forwarded'' to the user's followers, and boosts the content in search results etc.
+\end{description}
+
+% section relevant_qualities_of_twitter_data (end)
+

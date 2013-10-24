@@ -1,0 +1,39 @@
+% Chapter 4
+
+\chapter{Design} % Main chapter title
+
+\label{Chapter4} % For referencing the chapter elsewhere, use \ref{Chapter1} 
+
+\lhead{Chapter 4. \emph{Design}} % This is for the header on each page - perhaps a shortened title
+
+%----------------------------------------------------------------------------------------
+
+% \emph{How the product was designed, with discussion of design alternatives (referring to Appendix B for details).}
+% 
+% \emph{Diskuter de viktigste funksjonene i ditt design og hvordan det har utviklet seg, fremhev noen nye/originale funksjoner.}
+% 
+% \emph{Ikke ha med design dokumentasjon her!}
+
+The basic architecture in figure~\ref{fig:1_basic_architecture} reflects this. Our work will be aimed at the component labelled \emph{A}.
+
+\begin{figure}[h]
+  \centering
+    \begin{verbatim}
+       -------------------                       --------------------------
+      |                   |         ---         |                          |
+      |  Recommendations  | -----> | A | -----> |  Better Recommendations  |
+      |                   |         ---         |                          |
+       -------------------           ^           --------------------------
+                                     |
+                                     |
+                               ------------
+                             /              \
+                            |  Social Media  |
+                             \              /
+                               ------------
+    \end{verbatim}
+  \caption{The basic architecture of a system described in this thesis. We mainly describe the component labelled \emph{A}.}
+  \label{fig:1_basic_architecture}
+\end{figure}
+
+%----------------------------------------------------------------------------------------

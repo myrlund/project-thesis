@@ -1,0 +1,26 @@
+README file for the ramsreport "package".
+==============================
+This "package" contains the required files to write your project and/or Master's thesis by pdfLaTeX.
+
+First you need to download and install LaTeX on your computer. Guidance on how to do this is given on http://folk.ntnu.no/marvinr/rams/index.php/LaTeX
+
+If you have a Windows PC, you may choose between MikTeX and TeXLive. Both are equally good, but MikTeX may be easier to install and keep updated. If you do not have other preferences, I recommend you to use the LaTeX editor TeXworks. This is included in the LaTeX package for both MikTeX and TeXLive. 
+
+When you open TeXworks (or TeXShop if you use a Mac), please open "Preferences->Editor" and check that the font encoding is specified as UTF-8 (If not, change to this encoding).
+
+When you have LaTeX installed, you should move all files in this "package" to a separate folder, for example, called "thesis", and read the file "thesis.pdf" carefully.
+
+You should open the file "refs.bib" by JabRef (if you use Windows) or BiBDesk (if you use Mac). Please be very careful when you enter new references - and fill in all required fields. In many cases, you may export the references directly into "refs.bib" from ScienceDirect, Amazon, Google Books, etc. without having to type anything.
+
+When you have entered text in one or more chapters, you may compile thesis.tex and see the result. In TeXworks, compilation is done by activating the green "arrow" in the upper left corner of the screen. Please check that pdfLaTeX is in the option window (to the right of the green "arrow"). It it is not already done, you may set the default to pdfLaTeX by opening "Preferences->Typesetting->Default". 
+
+If you have entered references, you need to run BibTeX (change the option window to BibTeX and activate the green "arrow") and then you have to run pdfLaTeX one or two times more to include the references. 
+
+The style of your report is specified in the file "ramsstyle.sty". This file contains settings, such as fonts, symbols, special "packages" that are included, etc. You may edit this file, but please take a back-up before you start editing. 
+
+This "package" is made for pdfLaTeX and figure files must therefore be in pdf, png, or jpeg format. I recommend to save all figures in pdf-format. (There is also a traditional LaTeX format where all figures must be in eps format, but this does not function automatically in pdfLaTeX). It may happen that you get problems with the size of the figures -- because your drawing program has not specified the "bounding box" of the figure properly. You may have to experiment a bit to get this box correct.
+
+I have activated hyperlinks in the "package". If you think it is a nuisance while writing the thesis, you may turn it off by commenting out the \usepackage{hyperref} in "ramsstyle.sty". You may also change the behavior of the hyperlinks by adding options to the hyperref package.
+
+2012-08-21
+Marvin Rausand
