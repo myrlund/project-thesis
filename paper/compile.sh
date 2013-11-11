@@ -4,9 +4,9 @@ FILENAME=${1:-main}
 
 echo Compiling $FILENAME.
 
-pdflatex $FILENAME.tex
-bibtex   $FILENAME.aux
-pdflatex $FILENAME.tex
-pdflatex $FILENAME.tex
+cmd="pdflatex -interaction=nonstopmode -no-shell-escape"
 
-echo Done.
+$cmd   $FILENAME.tex
+bibtex $FILENAME.aux
+$cmd   $FILENAME.tex
+$cmd   $FILENAME.tex
