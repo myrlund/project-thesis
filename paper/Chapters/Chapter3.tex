@@ -21,7 +21,9 @@ As previously mentioned, ``Tweets'' can be \emph{favorited}, \emph{retweeted}, a
 Additionally, we can tell how big reach an author has by counting the number of \emph{followers} he/she has, and use this as another indication of content popularity.
 
 We want to be able to use the data as a source of implicit ratings. To be able to, we need to quantify the significance of these verbs.
-Oard~and~Kim~\cite{Oard98implicitfeedback,Oard01modelinginformation} and Kelly~and~Teevan~\cite{Kelly03implicitfeedback} have developed a framework for classification of online (@TODO)...
+Oard~and~Kim~\cite{Oard98implicitfeedback,Oard01modelinginformation} and Kelly~and~Teevan~\cite{Kelly03implicitfeedback} have developed a framework for classification of implicit feedback.
+They define three major categories for implicit feedback: examination, retention, and reference.
+
 We adapt it to the domain of Twitter data, and wind up with table~\ref{tab:behavior_class}.
 
 \begin{table}[h]
@@ -29,8 +31,6 @@ We adapt it to the domain of Twitter data, and wind up with table~\ref{tab:behav
     \begin{tabular}{|llcl|}
       \hline
       \textbf{Original} & \textbf{Ours} & & \textbf{Action} \\
-      \hline
-      Create    & Create   & $\rightarrow$ & Tweet \\
       \hline
       Examine   & Consume  & $\rightarrow$ & Follow \\
       \hline

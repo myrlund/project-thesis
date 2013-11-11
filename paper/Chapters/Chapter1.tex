@@ -54,21 +54,21 @@ This leaves us with a source of textual data that is:
 \end{description}
 
 Furthermore, the Twitter search API\footnote{\url{https://dev.twitter.com/docs/api/1.1/get/search/tweets}} supports returning both \emph{popular} and \emph{recent} content, or a mix of the two.
-This enables two interesting approaches to both filtering and annotating the recommended content, in that we can treat popular comments and recent comments separately.
+This enables two interesting approaches to both filtering and annotating the recommended content, in that we can treat popular and recent comments separately.
 
 %----------------------------------------------------------------------------------------
 
 \section{Research Questions}
 
-In this thesis, I'm not looking into the task of \emph{generating new recommendations}, but rather trying to \emph{improve a set of recommendations} taking copious social media data into account.
+In this thesis, I'm \emph{not} looking into the task of \emph{generating new recommendations}, but rather trying to \emph{improve a set of recommendations} taking copious social media data into account.
 
-We will have a look at ways of using copious social media data to \emph{annotate} and \emph{filter} sets of recommendations.
+I will rather look at ways of using copious\footnote{\emph{Copious} in the sense that the size of the data source is arbitrarily large.} social media data to \emph{annotate} and \emph{filter} sets of recommendations.
 
 More specifically, the aim is to find answers to the following questions:
 
 \begin{enumerate}
   \item Can sentiment analysis of large quantities of unpersonal social media data be used to effectively filter recommendations?
-  \item Do users want context associated with recommendations? Can filtered unpersonal social media data serve this role?
+  \item Do users want context associated with recommendations? Can filtered unpersonal social media data fill this role?
   \item How do we evaluate our efforts in order to answer the above questions?
 \end{enumerate}
 
@@ -76,7 +76,8 @@ More specifically, the aim is to find answers to the following questions:
 
 \section{Overview and Summary}
 
-We will look at improving an intermediate step in a hypothetical recommendation pipeline, filtering and/or annotating recommended content.
+I will look at improving an intermediate step in a hypothetical recommendation pipeline, filtering and/or annotating recommended content.
+For a more detailed look at the system design, and some reasoning around the parts of the system being touched upon, see chapter~\ref{Chapter4}.
 
 \emph{@TODO Add more overview and summary information as it comes into existence.}
 

@@ -19,12 +19,13 @@ Some people have attempted the same task as in this thesis, albeit with another 
 Singh et al. \cite{Singh2011} investigated a ``formulation, where [they] combined the content-based approach with a sentiment analysis task to improve the recommendation results.''
 Their approach is very similar to our approach, but differs in two important ways:
 \begin{enumerate}
-  \item It uses user reviews from IMDB as content source, and not a more general source of sentiment-carrying content -- as in our case, with Twitter.
+  \item It uses user reviews from IMDB as content source\footnote{IMDB does not provide open API access at the time of writing.}, and not a more general source of sentiment-carrying content -- as in our case, with Twitter.
   \item It is not designed to enhance presupplied recommendations, but rather to generate its own based on genre input by calculating content similarity.
 \end{enumerate}
 
 As we're looking at data from Twitter, the sentiment analysis task is a bit different than usual, as it needs to operate on texts that are all less than 140 characters long. More often than not, we will in fact need to work with texts that are merely one or two sentences long.
 Cho \& Kang \cite{ChoKang2012} ``propose a method of classifying tendencies and opinions in texts of multiple sentence length extracted from social media and covering both formal and informal vocabularies''.
+Among the things the more unusual things they condider when analysing content is posision of each sentence and emotion icons, which is quite important in short, concise text like ones found on Twitter.
 We'll be taking a closer look at this method for the actual sentiment analysis task.
 
 
@@ -41,7 +42,7 @@ What spawned the idea of using an unpersonal social service like Twitter as a co
 For this they use Facebook.
 
 One huge limitation to the Facebook approach is that Facebook doesn't expose how ``close'' you are to your various friends.
-People take on
+% People influence each other in different ways.
 
 Content sharing patterns (Social influence and the diffusion of user-created content): \cite{Bakshy2009}.
 
