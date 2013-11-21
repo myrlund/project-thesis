@@ -9,8 +9,6 @@ import re
 from lib.datumbox import DatumBox
 from lib.twitter import Twitter, Tweet
 
-DEBUG = False
-
 CONFIG = json.loads(open('config.json', 'r').read())
 
 def get_tweets(query, result_type='popular'):
@@ -18,7 +16,7 @@ def get_tweets(query, result_type='popular'):
     twitter_client = Twitter(CONFIG['twitter'])
     tweet_data = twitter_client.search("\"%s\" -download -stream -#nw -#nowwatching -RT" % (query,), result_type=result_type, count=30)
     
-    if DEBUG: print "Retrieved %d tweets." % len(tweet_data)
+    if DEBUG: print "Retrieved %d tweets (with result type %s)." % (len(tweet_data), result_type)
     
     # if DEBUG:
     #     print json.dumps(tweet_data[0], sort_keys=True, indent=4, separators=(',', ': '))
@@ -99,7 +97,17 @@ def title_score(title, heuristic='popular'):
     return score
 
 if __name__ == '__main__':
-    titles = sys.argv[1:]
-    for title in titles:
+    import argparse
+    parser = argparse.ArgumentParser(description="Parses sentences.")
+    parser.add_argument('-t', nargs=1, help="type of search", choices=('recent', 'popular', 'mixed'), default=['popular'])
+    parser.add_argument('--debug', action='store_true', help="print traces and parse trees")
+    parser.add_argument('titles', nargs='+', help="Item titles to analyze.")
+
+    args = parser.parse_args()
+    
+    DEBUG = args.debug
+    
+    for title in args.titles:
+        print title
         print "Scoring %s." % title
-        print "SCORE: %.2f" % title_score(title, heuristic='mixed')
+        print "SCORE: %.2f" % title_score(title, heuristic=args.t[0])
