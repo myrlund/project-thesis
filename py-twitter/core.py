@@ -9,7 +9,13 @@ import re
 from lib.datumbox import DatumBox
 from lib.twitter import Twitter, Tweet
 
-CONFIG = json.loads(open('config.json', 'r').read())
+def load_config(config_file):
+    f = open('config.json', 'r')
+    config = json.loads(f.read())
+    f.close()
+    return config
+
+CONFIG = load_config('config.json')
 
 def get_tweets(query, result_type='popular'):
     # Search the Twitter API for the given title
