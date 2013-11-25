@@ -4,7 +4,7 @@ def connect():
     return sqlite3.connect('data.db')
 
 def load_movie_titles():
-    f = open('nf/movie_titles.txt', 'rb')
+    f = open('netflix/movie_titles.txt', 'rb')
     lines = f.readlines()
     f.close()
     
@@ -41,7 +41,7 @@ def get_id_for_title(title):
             return None
 
 def load_movie_ratings(movie_id):
-    filename = "nf/training_set/mv_%07d.txt" % int(movie_id)
+    filename = "netflix/training_set/mv_%07d.txt" % int(movie_id)
     
     f = open(filename, 'rb')
     lines = f.readlines()
