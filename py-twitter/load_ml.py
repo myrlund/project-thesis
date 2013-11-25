@@ -1,7 +1,7 @@
 import sqlite3
 
 def connect():
-    return sqlite3.connect('data.db')
+    return sqlite3.connect('data_ml.db')
 
 def load_items():
     f = open('ml/u.item', 'r')

@@ -74,9 +74,9 @@ def weigh_sentiments(sentiments):
     if DEBUG: print "Applying weights."
     
     weights = {
-        'positive': 10,
-        'negative': -10,
-        'neutral': 2,
+        'positive': 5,
+        'negative': 1,
+        'neutral': 3,
     }
     apply_weight = lambda sentiment: weights[sentiment]
     weights = map(apply_weight, valid_sentiments)
@@ -91,10 +91,10 @@ def analyze_title(title, source_type='popular'):
     weights = weigh_sentiments(sentiments)
     return weights
 
-def calculate_score(result):
-    return sum(result) / float(len(result))
-
 def average(s): return sum(s) * 1.0 / len(s)
+
+def calculate_score(result):
+    return average(result)
 
 def title_score(title, heuristic='popular'):
     result = analyze_title(title, source_type=heuristic)
