@@ -371,14 +371,14 @@
 \begin{longtable}[c]{#1}#2\end{longtable}\par
     \cleardoublepage
 }
-\newcommand\listconstants{Physical Constants}
+\newcommand\listglossary{Glossary}
 \usepackage{longtable}
-\newcommand\listofconstants[2]{
-\btypeout{\listconstants}
-\addtotoc{\listconstants}
-    \chapter*{\listconstants
+\newcommand\listofwords[2]{
+\btypeout{\listglossary}
+\addtotoc{\listglossary}
+    \chapter*{\listglossary
       \@mkboth{
-          \MakeUppercase\listconstants}{\MakeUppercase\listconstants}}
+          \MakeUppercase\listglossary}{\MakeUppercase\listglossary}}
 \begin{longtable}[c]{#1}#2\end{longtable}\par
     \cleardoublepage
 }
