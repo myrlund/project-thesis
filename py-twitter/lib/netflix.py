@@ -1,7 +1,7 @@
 import sqlite3
 
 def connect():
-    return sqlite3.connect('data_nf.db')
+    return sqlite3.connect('data.db')
 
 def load_movie_titles():
     f = open('nf/movie_titles.txt', 'rb')
@@ -56,7 +56,10 @@ def load_movie_ratings(movie_id):
 
 def ratings_for_movie_title(title):
     movie_id = get_id_for_title(title)
-    return load_movie_ratings(movie_id)
+    if movie_id is not None:
+        return load_movie_ratings(movie_id)
+    else:
+        return None
 
 if __name__ == '__main__':
     # Uncomment for seeding of movies

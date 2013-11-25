@@ -5,6 +5,8 @@ import json
 import threading
 import operator
 import re
+import sqlite3
+import math
 
 from lib import netflix
 from lib.datumbox import DatumBox
@@ -17,6 +19,28 @@ def load_config(config_file):
     return config
 
 CONFIG = load_config('config.json')
+
+def connect():
+    return sqlite3.connect('data.db')
+    
+def get_cached_tweet_sentiment(tweet_id):
+    conn = connect()
+    with conn:
+        cursor = conn.cursor()
+        cursor.execute("CREATE TABLE IF NOT EXISTS cached_sentiments (tweet_id VARCHAR(50), sentiment VARCHAR(50))")
+        cursor.execute("SELECT sentiment FROM cached_sentiments WHERE tweet_id = ?", (tweet_id,))
+        rows = cursor.fetchall()
+        
+        if len(rows) > 0:
+            return rows[0][0]
+        else:
+            return None
+
+def cache_tweet_sentiment(tweet):
+    conn = connect()
+    with conn:
+        cursor = conn.cursor()
+        cursor.execute("INSERT INTO cached_sentiments VALUES (?, ?)", (tweet.id, tweet.sentiment))
 
 def get_tweets(query, result_type='popular'):
     # Search the Twitter API for the given title
@@ -34,6 +58,7 @@ def get_tweets(query, result_type='popular'):
     # Add a filtered version of the tweet text
     pattern = re.compile(query.replace(" ", " ?"), re.I)
     for tweet in tweets:
+        tweet.sentiment = get_cached_tweet_sentiment(tweet.id)
         tweet.filtered_text = pattern.sub('', tweet.text)
     
     return tweets
@@ -56,12 +81,15 @@ def get_sentiments(tweets):
     datumbox = DatumBox(CONFIG['datumbox']['API_KEY'])
     
     for batch in batches(tweets, CONFIG['datumbox']['BATCH_SIZE']):
-        threads = [threading.Thread(target=apply_sentiment, args=(datumbox, tweet,)) for tweet in batch]
+        threads = [threading.Thread(target=apply_sentiment, args=(datumbox, tweet,)) for tweet in batch if tweet.sentiment is None]
         [thread.start() for thread in threads]
         [thread.join() for thread in threads]
         if DEBUG:
             for tweet in batch:
                 print unicode(tweet)
+    
+    for tweet in tweets:
+        cache_tweet_sentiment(tweet)
     
     sentiments = [tweet.sentiment for tweet in tweets]
     return sentiments
@@ -95,10 +123,17 @@ def generate_ratings(title, source_type='popular'):
 def average(s):
     return sum(s) / float(len(s))
 
+def variance(s):
+    mean = average(s)
+    return average(map(lambda x: (x - mean)**2, s))
+
+def stddev(s):
+    return math.sqrt(variance(s))
+
 def analyze_ratings(ratings):
     mean = average(ratings)
-    variance = average(map(lambda x: (x - mean)**2, ratings))
-    return mean, variance
+    var = variance(ratings)
+    return mean, var
 
 def title_score(title, heuristic='popular'):
     ratings = generate_ratings(title, source_type=heuristic)
@@ -124,6 +159,12 @@ if __name__ == '__main__':
         "the shining",
         "mission: impossible",
         "the matrix",
+        "the godfather",
+        "forrest gump",
+        "the pianist",
+        "citizen kane",
+        "a clockwork orange",
+        "Requiem for a Dream",
     ]
     
     tw_means = []
@@ -140,4 +181,22 @@ if __name__ == '__main__':
     
     tw_avg = average(tw_score)
     nf_avg = average(nf_score)
-    print average(map(lambda means: (means[0] - tw_avg) * (means[1] - nf_avg), zip(tw_means, nf_means)))
+    
+    a = map(lambda x: x - tw_avg, tw_means)
+    b = map(lambda x: x - nf_avg, nf_means)
+    
+    a2 = sum(map(lambda x: x ** 2, a))
+    b2 = sum(map(lambda x: x ** 2, b))
+    
+    cov = sum(map(lambda ab: ab[0] * ab[1], zip(a, b)))
+    
+    # tw_stddev = math.sqrt(variance(tw_score))
+    # nf_stddev = math.sqrt(variance(nf_score))
+    
+    correlation = cov / math.sqrt(a2 * b2)
+    
+    print
+    print "Twitter stddev: %.2f" % sum(a)
+    print "Netflix stddev: %.2f" % sum(b)
+    print "Covariance:  %.2f" % cov
+    print "Correlation: %.2f" % correlation
