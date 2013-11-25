@@ -6,6 +6,7 @@ import threading
 import operator
 import re
 
+from lib import netflix
 from lib.datumbox import DatumBox
 from lib.twitter import Twitter, Tweet
 
@@ -85,35 +86,58 @@ def weigh_sentiments(sentiments):
     
     return tuple(weights)
 
-def analyze_title(title, source_type='popular'):
+def generate_ratings(title, source_type='popular'):
     tweets = get_tweets(title, result_type=source_type)
     sentiments = get_sentiments(tweets)
     weights = weigh_sentiments(sentiments)
     return weights
 
-def average(s): return sum(s) * 1.0 / len(s)
+def average(s):
+    return sum(s) / float(len(s))
 
-def calculate_score(result):
-    return average(result)
+def analyze_ratings(ratings):
+    mean = average(ratings)
+    variance = average(map(lambda x: (x - mean)**2, ratings))
+    return mean, variance
 
 def title_score(title, heuristic='popular'):
-    result = analyze_title(title, source_type=heuristic)
-    score = calculate_score(result)
-    print "VARIANCE: %.2f" % average(map(lambda x: (x - score)**2, result))
-    return score
+    ratings = generate_ratings(title, source_type=heuristic)
+    return analyze_ratings(ratings)
+
+def nf_title_score(title):
+    ratings = netflix.ratings_for_movie_title(title)
+    return analyze_ratings(ratings)
 
 if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser(description="Parses sentences.")
     parser.add_argument('-t', nargs=1, help="type of search", choices=('recent', 'popular', 'mixed'), default=['popular'])
     parser.add_argument('--debug', action='store_true', help="print traces and parse trees")
-    parser.add_argument('titles', nargs='+', help="Item titles to analyze.")
+    # parser.add_argument('titles', nargs='+', help="Item titles to analyze.")
 
     args = parser.parse_args()
     
     DEBUG = args.debug
     
-    for title in args.titles:
+    titles = [
+        "pulp fiction",
+        "the shining",
+        "mission: impossible",
+        "the matrix",
+    ]
+    
+    tw_means = []
+    nf_means = []
+    for title in titles:
         print title
+        tw_score = title_score(title, heuristic=args.t[0])
+        tw_means.append(tw_score[0])
+        nf_score = nf_title_score(title)
+        nf_means.append(nf_score[0])
         print "Scoring %s." % title
-        print "SCORE: %.2f" % title_score(title, heuristic=args.t[0])
+        print "Twitter mean/variance: %.2f/%.2f" % tw_score
+        print "Netflix mean/variance: %.2f/%.2f" % nf_score
+    
+    tw_avg = average(tw_score)
+    nf_avg = average(nf_score)
+    print average(map(lambda means: (means[0] - tw_avg) * (means[1] - nf_avg), zip(tw_means, nf_means)))

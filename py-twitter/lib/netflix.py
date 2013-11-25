@@ -83,8 +83,8 @@ def ratings_for_movie_title(title):
     return load_movie_ratings(movie_id)
 
 if __name__ == '__main__':
-    # movies = load_movie_titles()
-    # insert_movie_titles(movies)
+    movies = load_movie_titles()
+    insert_movie_titles(movies)
     
     ratings = ratings_for_movie_title("pulp fiction")
     print sum(ratings) / len(ratings)
