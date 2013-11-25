@@ -1,0 +1,12 @@
+{
+  "twitter": {
+    "CONSUMER_KEY": "",
+    "CONSUMER_SECRET": "",
+    "OAUTH_TOKEN": "",
+    "OAUTH_TOKEN_SECRET": ""
+  },
+  "datumbox": {
+    "API_KEY": "",
+    "BATCH_SIZE": 5
+  }
+}
