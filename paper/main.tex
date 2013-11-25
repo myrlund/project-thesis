@@ -71,19 +71,19 @@
 \begin{minipage}{0.4\textwidth}
 \begin{flushleft} \large
 \emph{Author:}\\
-\authornames \\ ~ % Author name - remove the \href bracket to remove the link
+\authornames % Author name - remove the \href bracket to remove the link
 \end{flushleft}
 \end{minipage}
 \begin{minipage}{0.4\textwidth}
 \begin{flushright} \large
-\emph{Supervisors:} \\
+\emph{Supervisor:} \\
 \supname % Supervisor name - remove the \href bracket to remove the link  
 \end{flushright}
 \end{minipage}\\[3cm]
  
-\large \textit{A thesis submitted in fulfilment of the requirements\\ for the degree of \degreename}\\[0.3cm] % University requirement text
-\textit{in the}\\[0.4cm]
-\groupname\\\deptname\\[2cm] % Research group name and department name
+% \large \textit{A thesis submitted in fulfilment of the requirements\\ for the degree of \degreename}\\[0.3cm] % University requirement text
+% \textit{in the}\\[0.4cm]
+% \groupname\\\deptname\\[2cm] % Research group name and department name
  
 {\large \today}\\[4cm] % Date
 %\includegraphics{Logo} % University/department logo - uncomment to place it
@@ -148,8 +148,9 @@
 
 \abstract{\addtocontents{toc}{\vspace{1em}} % Add a gap in the Contents, for aesthetics
 
-This is a project thesis about movie recommendations, specifically answering the question: \emph{can movie recommendations be significantly improved by copious social media data?}
+This is a project thesis about movie recommendations, specifically answering the question: \emph{can movie recommendations be significantly improved by unpersonal social media data?}
 We look at how we can improve a set of recommendations -- through filtering and annotation -- by analyzing \emph{the sentiment in social media}.
+By selecting a set of movies, and comparing the results to those found in open movie rating datasets, we consider whether the sentiment extracted from social media is of significant use in improving movie recommendations.
 
 @TODO What do we find???
 
@@ -199,7 +200,6 @@ We look at how we can improve a set of recommendations -- through filtering and 
 \listofsymbols{ll} % Include a list of Abbreviations (a table of two columns)
 {
 \textbf{SNS} & \textbf{S}ocial \textbf{N}etwork \textbf{S}ervice \\
-%\textbf{Acronym} & \textbf{W}hat (it) \textbf{S}tands \textbf{F}or \\
 }
 
 % %----------------------------------------------------------------------------------------

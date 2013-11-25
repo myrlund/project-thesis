@@ -18,23 +18,17 @@ The basic architecture is outlined in figure~\ref{fig:1_basic_architecture}. Our
 
 \begin{figure}[h]
   \centering
-    \begin{verbatim}
-       -------------------                       --------------------------
-      |                   |         ---         |                          |
-      |  Recommendations  | -----> | A | -----> |  Better Recommendations  |
-      |                   |         ---         |                          |
-       -------------------           ^           --------------------------
-                                     |
-                                     |
-                               ------------
-                             /              \
-                            |  Social Media  |
-                             \              /
-                               ------------
-    \end{verbatim}
+    \includegraphics{Figures/01-high-level-architecture}
   \caption{The basic architecture of a system described in this thesis. We mainly describe the component labelled \emph{A}.}
   \label{fig:1_basic_architecture}
 \end{figure}
 
-The decision to keep the system as an improving step rather than a generating step
+The \emph{A} component is structured as illustrated in figure~\ref{fig:2_component_architecture}.
+
+\begin{figure}[h]
+  \centering
+    \includegraphics{Figures/02-component-layout}
+  \caption{The layout of the system within component A.}
+  \label{fig:2_component_architecture}
+\end{figure}
 
