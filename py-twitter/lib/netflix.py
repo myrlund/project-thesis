@@ -59,8 +59,8 @@ def ratings_for_movie_title(title):
     return load_movie_ratings(movie_id)
 
 if __name__ == '__main__':
-    movies = load_movie_titles()
-    insert_movie_titles(movies)
+    # Uncomment for seeding of movies
+    # seed_movie_titles(load_movie_titles())
     
     import sys
     title = " ".join(sys.argv[1:])
