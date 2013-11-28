@@ -94,3 +94,6 @@ class Twitter:
         }
         data = self.api_request("search/tweets", payload)
         return data["statuses"]
+
+class NotEnoughTweetsError(ValueError):
+    pass
