@@ -63,3 +63,22 @@ def variance(s):
 
 def stddev(s):
     return math.sqrt(variance(s))
+
+def correlation(s1, s2):
+    s1_mean = average(s1)
+    s2_mean = average(s2)
+    a = map(lambda x: x - s1_mean, s1)
+    b = map(lambda x: x - s2_mean, s2)
+    a2 = sum(map(lambda x: x ** 2, a))
+    b2 = sum(map(lambda x: x ** 2, b))
+    cov = sum(map(lambda ab: ab[0] * ab[1], zip(a, b)))
+    correlation = cov / math.sqrt(a2 * b2)
+    
+    return correlation
+
+def mean_square_error(predictions, ratings):
+    errors = []
+    for i in xrange(len(predictions)):
+        errors.append((ratings[i] - predictions[i])**2)
+    return sum(errors) / len(predictions)
+

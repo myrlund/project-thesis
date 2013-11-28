@@ -16,10 +16,10 @@ from plots import barplot
 
 CONFIG = load_config('config.json')
 
-def get_tweets(query, result_type='popular'):
+def get_tweets(query, result_type, max_tweets):
     # Search the Twitter API for the given title
     twitter_client = Twitter(CONFIG['twitter'])
-    tweet_data = twitter_client.search("\"%s\" -download -stream -#nw -#nowwatching -RT" % (query,), result_type=result_type, count=50)
+    tweet_data = twitter_client.search("\"%s\" movie -download -stream -#nw -#nowwatching -RT" % (query,), result_type=result_type, count=max_tweets)
     
     if DEBUG: print "Retrieved %d tweets (with result type %s)." % (len(tweet_data), result_type)
     
@@ -84,8 +84,8 @@ def weigh_sentiments(sentiments):
     
     return tuple(weights)
 
-def generate_ratings(title, source_type='popular', threshold=5):
-    tweets = get_tweets(title, result_type=source_type)
+def generate_ratings(title, source_type, threshold, max_tweets):
+    tweets = get_tweets(title, source_type, max_tweets)
     if len(tweets) < threshold:
         raise NotEnoughTweetsError("Number of tweets below threshold of %d." % threshold)
     
@@ -98,95 +98,106 @@ def analyze_ratings(ratings):
     var = stddev(ratings)
     return mean, var
 
-def title_score(title, heuristic='popular', threshold=5):
-    ratings = generate_ratings(title, source_type=heuristic, threshold=threshold)
+def title_score(title, heuristic='popular', threshold=5, max_tweets=25):
+    ratings = generate_ratings(title, source_type=heuristic, threshold=threshold, max_tweets=max_tweets)
     return analyze_ratings(ratings)
+
+def netflix_average_rating(title):
+    return average(netflix.ratings_for_movie_title(title))
 
 def nf_title_score(title):
     ratings = netflix.ratings_for_movie_title(title)
     return analyze_ratings(ratings)
 
-if __name__ == '__main__':
-    import argparse
-    parser = argparse.ArgumentParser(description="Parses sentences.")
-    parser.add_argument('-t', help="type of search", choices=('recent', 'popular', 'mixed'), default='popular')
-    parser.add_argument('--threshold', help="type of search", type=int, default=5)
-    parser.add_argument('--normalize', action='store_true', help="normalize twitter ratings to match average mean of netflix data")
-    parser.add_argument('--top-movies-only', action='store_true', help="only load top movies")
-    parser.add_argument('--plot', action='store_true', help="plot the results and show them")
-    parser.add_argument('--show-errors', action='store_true', help="plot the standard deviations and other errors")
-    parser.add_argument('--debug', action='store_true', help="print traces and parse trees")
-    # parser.add_argument('titles', nargs='+', help="Item titles to analyze.")
-
-    args = parser.parse_args()
-    
-    DEBUG = args.debug
-    
-    # titles = [
-    #     "Pulp Fiction",
-    #     "The Shining",
-    #     "Mission: Impossible",
-    #     "The Matrix",
-    #     "The Godfather",
-    #     "Forrest Gump",
-    #     "A Clockwork Orange",
-    # ]
-    
-    tw_means = []
-    tw_stddevs = []
-    nf_means = []
-    nf_stddevs = []
+def means_of_random_movies(n_titles, twitter_search_type=None, top_movies_only=False, tweet_threshold=5, max_tweets=25):
+    means = []
+    stddevs = []
     processed_titles = []
-    while len(processed_titles) < 10:
+    while len(processed_titles) < n_titles:
         movie_id, title = get_random_movie(args.top_movies_only)
-        print title
+        
+        if DEBUG: print title
         
         try:
-            tw_mean, tw_stddev = title_score(title, heuristic=args.t[0], threshold=args.threshold)
+            mean, stddev = title_score(title, heuristic=twitter_search_type, threshold=tweet_threshold, max_tweets=max_tweets)
         except NotEnoughTweetsError, e:
             print "Not enough data found to reliably predict score for %s." % title
             continue
         
         processed_titles.append(title)
+        means.append(mean)
+        stddevs.append(stddev)
         
-        tw_means.append(tw_mean)
-        tw_stddevs.append(tw_stddev)
+        if DEBUG:
+            print "Twitter mean/variance: %.2f/%.2f" % (mean, stddev)
+            print
+    
+    return (means, stddevs, processed_titles)
+
+if __name__ == '__main__':
+    import argparse
+    parser = argparse.ArgumentParser(description="Parses sentences.")
+    parser.add_argument('-t', help="type of search", choices=('recent', 'popular', 'mixed'), default='popular')
+    parser.add_argument('-n', help="number of movies to process", type=int, default=10)
+    parser.add_argument('--max-tweets', help="max number of tweets to process per title", type=int, default=25)
+    parser.add_argument('--threshold', help="number of tweets required to start sentiment analysis", type=int, default=5)
+    parser.add_argument('--normalize', action='store_true', help="normalize twitter ratings to match average mean of netflix data")
+    parser.add_argument('--top-movies-only', action='store_true', help="only load top movies")
+    parser.add_argument('--plot', action='store_true', help="plot the results and show them")
+    parser.add_argument('--show-errors', action='store_true', help="plot the standard deviations and other errors")
+    parser.add_argument('-d', '--debug', action='store_true', help="print traces and parse trees")
+    parser.add_argument('routine', choices=('mse', 'compare'), nargs='?', default='mse')
+
+    args = parser.parse_args()
+    DEBUG = args.debug
+    
+    if args.routine == "mse":
         
-        nf_mean, nf_stddev = nf_title_score(title)
-        nf_means.append(nf_mean)
-        nf_stddevs.append(nf_stddev)
+        N = args.n
         
-        print "Scoring %s." % title
-        print "Twitter mean/variance: %.2f/%.2f" % (tw_mean, tw_stddev)
-        print "Netflix mean/variance: %.2f/%.2f" % (nf_mean, nf_stddev)
+        # Calculate rating means of random movies
+        (predictions, stddevs, titles) = means_of_random_movies(N, twitter_search_type=args.t,
+                                                                   top_movies_only=args.top_movies_only,
+                                                                   tweet_threshold=args.threshold,
+                                                                   max_tweets=args.max_tweets)
+        
+        ratings = map(netflix_average_rating, titles)
+        
+        mse_predictions = mean_square_error(predictions, ratings)
+        
+        print "Mean Square Error: %.2f" % mse_predictions
+        print "Average of actual ratings (baseline): %.2f" % mean_square_error([average(ratings)] * N, ratings)
+        
     
-    tw_avg = average(tw_means)
-    nf_avg = average(nf_means)
+    if args.routine == "compare":
+        
+        # Calculate rating means of random movies
+        (means, stddevs, processed_titles) = means_of_random_movies(args.n, twitter_search_type=args.t,
+                                                                            top_movies_only=args.top_movies_only,
+                                                                            tweet_threshold=args.threshold)
+        
+        # Unpack scores
+        tw_means, tw_stddevs = means, stddevs
     
-    a = map(lambda x: x - tw_avg, tw_means)
-    b = map(lambda x: x - nf_avg, nf_means)
+        # Get netflix ratings
+        netflix_scores = map(nf_title_score, processed_titles)
+        nf_means, nf_stddevs = zip(*netflix_scores)
     
-    a2 = sum(map(lambda x: x ** 2, a))
-    b2 = sum(map(lambda x: x ** 2, b))
+        correlation_coefficient = correlation(tw_means, nf_means)
     
-    cov = sum(map(lambda ab: ab[0] * ab[1], zip(a, b)))
+        if DEBUG:
+            print "Twitter stddev: %.2f" % stddev(tw_means)
+            print "Netflix stddev: %.2f" % stddev(nf_means)
+            print "Correlation: %.2f" % correlation_coefficient
     
-    correlation = cov / math.sqrt(a2 * b2)
+        if args.normalize:
+            mean_diff = average(nf_means) - average(tw_means)
+            print "Adjusting twitter means by %.2f (nf avg mean: %.2f; tw avg mean: %.2f)" % (mean_diff, average(nf_means), average(tw_means))
+            tw_means = map(lambda mean: mean + mean_diff, tw_means)
     
-    print
-    print "Twitter stddev: %.2f" % stddev(tw_means)
-    print "Netflix stddev: %.2f" % stddev(nf_means)
-    print "Covariance:  %.2f" % cov
-    print "Correlation: %.2f" % correlation
-    
-    if args.normalize:
-        mean_diff = average(nf_means) - average(tw_means)
-        print "Adjusting twitter means by %.2f (nf avg mean: %.2f; tw avg mean: %.2f)" % (mean_diff, average(nf_means), average(tw_means))
-        tw_means = map(lambda mean: mean + mean_diff, tw_means)
-    
-    if args.plot:
-        data    = (tw_means, nf_means)
-        errors = (tw_stddevs, nf_stddevs) if args.show_errors else None
-        xlabels = map(initials, processed_titles)
-        plt = barplot(data, errors=errors, xlabels=xlabels)
-        plt.show()
+        if args.plot:
+            data    = (tw_means, nf_means)
+            errors = (tw_stddevs, nf_stddevs) if args.show_errors else None
+            xlabels = map(initials, processed_titles)
+            plt = barplot(data, errors=errors, xlabels=xlabels)
+            plt.show()
