@@ -6,4 +6,4 @@ I will take a somewhat untraditional approach in an attempt to mitigate these is
 
 ## Download the thesis
 
-[Current version as PDF](/main.pdf)
+[Current version as PDF](/paper/main.pdf)
