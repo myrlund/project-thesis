@@ -6,4 +6,4 @@ I will take a somewhat untraditional approach in an attempt to mitigate these is
 
 ## Download the thesis
 
-[Current version as PDF](/paper/main.pdf)
+[Current version as PDF](https://github.com/myrlund/project-thesis/raw/master/paper/main.pdf)
