@@ -1,13 +1,9 @@
-# Anbefalinger med sosial setting
+# Better movie recommendations with Twitter
 
-> Using social media input to help cluster movies.
+Many movie recommendation systems today use collaborative filtering techniques at their core. Although collaborative filtering has many advantages that have let it attain its position as one of the dominant algorithms in the field, there are still quite a few weaknesses left to remedy. Among others, two important challenges for collaborative filtering techniques left today are 1) their ability to handle data sparsity, and 2) their ability to explain predictions.
 
-## TODO
+I will take a somewhat untraditional approach in an attempt to mitigate these issues: can data mined from one of today's largest sources of user-generated content, Twitter, contribute enough relevant information to solve both the problem of data sparsity and result explanation?
 
-1. Read up on social media within information retrieval
-2. Read up on social media in recommendations
-3. Reformulate project description
-4. ???
-5. Sivilingeniør
+## Download the thesis
 
-
+[Current version as PDF](/main.pdf)
