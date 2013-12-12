@@ -1,66 +1,40 @@
 % Chapter 5
 
-\chapter{Implementation} % Main chapter title
+\chapter{Evaluation} % Main chapter title
 
-\label{Chapter5} % For referencing the chapter elsewhere, use \ref{Chapter1} 
+\label{Chapter5}
 
-\lhead{Chapter 5. \emph{Implementation}} % This is for the header on each page - perhaps a shortened title
+\lhead{Chapter 5. \emph{Evaluation}} % This is for the header on each page - perhaps a shortened title
 
 %----------------------------------------------------------------------------------------
 
-% \emph{Diskuter de viktigste algoritmene og datastrukturene, og hvordan de utviklet seg, fremhev noen nye/originale funksjoner. Også diskuter hvordan du har tenkt å utføre testen din (validering og evaluering).}
-
-The system does not directly employ any specific algorithms or data structures worth mentioning.
-The problem lies in determining the applicability of the data harvested from Twitter.
-
-A central part of the system is the sentiment classification of the Twitter results.
-This sentiment analysis could well have been implemented locally, but for simplicity's sake it has been offloaded to an external service called DatumBox\footnote{\url{datumbox.com}}, as it seems to employ a reasonable choice of algorithm, and performs well enough for our needs on the short Twitter messages.
-See section~\ref{sec:sentiment_analysis} for a more in-depth look at the techniques the DatumBox service utilizes.
-
-The system is implemented as a pipeline of sorts, consisting of two main steps, and one evaluation step:
-\begin{enumerate}
-  \item Data retrieval -- retrieves, cleans and packages the Twitter data into simple classes for easier subsequent use.
-  \item Sentiment analysis -- analyzes each tweet, classifying it as either positive, neutral, or negative.
-  \item Evaluation -- maps sentiment to a final score, and compares these results to those found in external datasets.
-\end{enumerate}
-
-\section{Data retrieval} % (fold)
-\label{sec:data_retrieval}
-
-As discussed in section~\ref{sec:twitter_as_a_data_source}, Twitter has a disturbingly low signal-to-noise ratio, so we had to examine every opportunity to refine the data retrieval step.
-Luckily, the Twitter API, at the time of writing, has a quite extensive search interface, with many ways of tweaking the results in a desired direction.
-
-After much trial and failure, the following settings seem to yield the best results:
+% \emph{Beskriv hvordan du vurderer arbeidet ditt. Oppsummer evalueringsresultatene, og bruk dem til å vurdere ditt eget arbeid kritisk. Vær ærlig om eventuelle mangler. Hva betyr resultatene?}
 
 \begin{itemize}
-  \item Ensure that the title is searched for in its entirety, not the individual words.
-  \item Exclude tweets containing the following terms\footnote{Any time a set of irrelevant results shared a common term, it would be added to the list. There are probably many ways of fine-tuning this further.}: ``download'', ``stream'', ``#nw'', ``#nowwatching'', and ``RT''.
+  \item When rating popular and well-known movies\footnote{The sample in question consisted of ``Pulp Fiction'', ``The Shining'', ``Mission: Impossible'', ``The Matrix'', ``The Godfather'', ``Forrest Gump'', and ``A Clockwork Orange''.}
+} the predicted ratings achieve a correlational coefficient of 0.75 with regard to average Netflix ratings for the same movie.
+  \item B-movies or older less-known movies rarely collect enough Twitter search results to warrant any further analysis.
+  \item Movies with titles that are fairly common words or expressions in their own right achieve very low precision, and often return only noise. This is hard to detect without manual interference. Need to perform some sort of Named Entity Disambiguation, maybe something like the techniques outlined in Cucerzan~\cite{NamedEntityDisambiguationWiki} or Sarmento~\cite{NamedEntityDisambiguationWS} (is elaboration needed?).
 \end{itemize}
 
-Then remained the choice between the two modes of search: ``popular'', ``recent'', or the optional combination of the two.
+\section{Evaluating against Netflix rating data} % (fold)
+\label{sec:evaluating_against_netflix_rating_data}
 
+To find out how the Twitter-based predictions fare, we will use the average of the available Netflix ratings of the same titles as a benchmark.
 
-% section data_retrieval (end)
+With predictions $p$, and benchmark ratings $r$, we will compute the MSE (Mean Square Error) of $N$ sample movies in the following way:
 
-\section{Sentiment analysis} % (fold)
-\label{sec:sentiment_analysis}
+\begin{align}
+  \text{MSE} &= \frac{1}{N} \sum_{i=1}^N (p_i - r_i)^2
+\end{align}
 
-As mentioned above, the task of sentiment analysis is offloaded to a SaaS called \url{DatumBox}. They outline the techniques applied in an article on their service blog~\cite{DatumBoxTwitterSentiment}.
+% Good idea?
+As a baseline metric, we'll compare against the MSE of the average of all the benchmark ratings:
 
-With the approach taken, texts are classified as either positive, neutral, or negative.
-A training set of 1.2 million tweets were tokenized ``by extracting their bigrams and by taking into account the URLs, the hash tags, the usernames and the emoticons'', and were subsequently fed into a Mutual Information algorithm for feature selection.
-The classifier in use is the Binarized Naïve Bayes, after having outperformed SVM, Max Entropy and others on the test set.
+\begin{align}
+  \text{MSE}_\text{baseline} = \frac{1}{N} \sum_{i=1}^N (\bar{r} - r_i)^2
+\end{align}
 
-With a 10-fold cross-validation, the best performing classifier allegiedly achieves an accuracy of 83.26\%.
+\emph{@TODO: Reasonable at all? Twitter loses heavily every time.}
 
-When calling the DatumBox API, the best results were achieved when removing the movie title itself from the query.
-Quite a lot of titles have sentiment-carrying words in their titles\footnote{``Breaking Bad'' consequently scoring way below ``Cheers'' was a rather clear cut case.}, and this obviously confused the classifier quite a bit.
-
-% section sentiment_analysis (end)
-
-\section{Evaluating sentiment} % (fold)
-\label{sec:evaluating_sentiment}
-
-
-
-% section evaluating_sentiment (end)
+% section evaluating_against_netflix_rating_data (end)

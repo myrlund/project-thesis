@@ -1,34 +1,66 @@
 % Chapter 4
 
-\chapter{Design} % Main chapter title
+\chapter{Implementation} % Main chapter title
 
 \label{Chapter4} % For referencing the chapter elsewhere, use \ref{Chapter1} 
 
-\lhead{Chapter 4. \emph{Design}} % This is for the header on each page - perhaps a shortened title
+\lhead{Chapter 4. \emph{Implementation}} % This is for the header on each page - perhaps a shortened title
 
 %----------------------------------------------------------------------------------------
 
-% \emph{How the product was designed, with discussion of design alternatives (referring to Appendix B for details).}
-% 
-% \emph{Diskuter de viktigste funksjonene i ditt design og hvordan det har utviklet seg, fremhev noen nye/originale funksjoner.}
-% 
-% \emph{Ikke ha med design dokumentasjon her!}
+% \emph{Diskuter de viktigste algoritmene og datastrukturene, og hvordan de utviklet seg, fremhev noen nye/originale funksjoner. Også diskuter hvordan du har tenkt å utføre testen din (validering og evaluering).}
 
-The basic architecture is outlined in figure~\ref{fig:1_basic_architecture}. Our work will be aimed at the component labelled \emph{A}.
+The system does not directly employ any specific algorithms or data structures worth mentioning.
+The problem lies in determining the applicability of the data harvested from Twitter.
 
-\begin{figure}[h]
-  \centering
-    \includegraphics{Figures/01-high-level-architecture}
-  \caption{The basic architecture of a system described in this thesis. We mainly describe the component labelled \emph{A}.}
-  \label{fig:1_basic_architecture}
-\end{figure}
+A central part of the system is the sentiment classification of the Twitter results.
+This sentiment analysis could well have been implemented locally, but for simplicity's sake it has been offloaded to an external service called DatumBox\footnote{\url{datumbox.com}}, as it seems to employ a reasonable choice of algorithm, and performs well enough for our needs on the short Twitter messages.
+See section~\ref{sec:sentiment_analysis} for a more in-depth look at the techniques the DatumBox service utilizes.
 
-The \emph{A} component is structured as illustrated in figure~\ref{fig:2_component_architecture}.
+The system is implemented as a pipeline of sorts, consisting of two main steps, and one evaluation step:
+\begin{enumerate}
+  \item Data retrieval -- retrieves, cleans and packages the Twitter data into simple classes for easier subsequent use.
+  \item Sentiment analysis -- analyzes each tweet, classifying it as either positive, neutral, or negative.
+  \item Evaluation -- maps sentiment to a final score, and compares these results to those found in external datasets.
+\end{enumerate}
 
-\begin{figure}[h]
-  \centering
-    \includegraphics{Figures/02-component-layout}
-  \caption{The layout of the system within component A.}
-  \label{fig:2_component_architecture}
-\end{figure}
+\section{Data retrieval} % (fold)
+\label{sec:data_retrieval}
 
+As discussed in section~\ref{sub:twitter_as_a_data_source}, Twitter has a disturbingly low signal-to-noise ratio, so we had to examine every opportunity to refine the data retrieval step.
+Luckily, the Twitter API, at the time of writing, has a quite extensive search interface, with many ways of tweaking the results in a desired direction.
+
+After much trial and failure, the following settings seem to yield the best results:
+
+\begin{itemize}
+  \item Ensure that the title is searched for in its entirety, not the individual words.
+  \item Exclude tweets containing the following terms\footnote{Any time a set of irrelevant results shared a common term, it would be added to the list. There are probably many ways of fine-tuning this further.}: ``download'', ``stream'', ``#nw'', ``#nowwatching'', and ``RT''.
+\end{itemize}
+
+Then remained the choice between the two modes of search: ``popular'', ``recent'', or the optional combination of the two.
+
+
+% section data_retrieval (end)
+
+\section{Sentiment analysis} % (fold)
+\label{sec:sentiment_analysis}
+
+As mentioned above, the task of sentiment analysis is offloaded to a SaaS called \url{DatumBox}. They outline the techniques applied in an article on their service blog~\cite{DatumBoxTwitterSentiment}.
+
+With the approach taken, texts are classified as either positive, neutral, or negative.
+A training set of 1.2 million tweets were tokenized ``by extracting their bigrams and by taking into account the URLs, the hash tags, the usernames and the emoticons'', and were subsequently fed into a Mutual Information algorithm for feature selection.
+The classifier in use is the Binarized Naïve Bayes, after having outperformed SVM, Max Entropy and others on the test set.
+
+With a 10-fold cross-validation, the best performing classifier allegiedly achieves an accuracy of 83.26\%.
+
+When calling the DatumBox API, the best results were achieved when removing the movie title itself from the query.
+Quite a lot of titles have sentiment-carrying words in their titles\footnote{``Breaking Bad'' consequently scoring way below ``Cheers'' was a rather clear cut case.}, and this obviously confused the classifier quite a bit.
+
+% section sentiment_analysis (end)
+
+\section{Evaluating sentiment} % (fold)
+\label{sec:evaluating_sentiment}
+
+
+
+% section evaluating_sentiment (end)

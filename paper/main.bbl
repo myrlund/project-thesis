@@ -1,9 +1,38 @@
-\begin{thebibliography}{9}
+\begin{thebibliography}{13}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Su and Khoshgoftaar(2009)]{Su:2009:SCF:1592474.1722966}
+Xiaoyuan Su and Taghi~M. Khoshgoftaar.
+\newblock A survey of collaborative filtering techniques.
+\newblock \emph{Adv. in Artif. Intell.}, 2009:\penalty0 4:2--4:2, January 2009.
+\newblock ISSN 1687-7470.
+\newblock \doi{10.1155/2009/421425}.
+\newblock URL \url{http://dx.doi.org/10.1155/2009/421425}.
+
+\bibitem[Herlocker et~al.(2000)Herlocker, Konstan, and
+  Riedl]{Herlocker:2000:ECF:358916.358995}
+Jonathan~L. Herlocker, Joseph~A. Konstan, and John Riedl.
+\newblock Explaining collaborative filtering recommendations.
+\newblock In \emph{Proceedings of the 2000 ACM Conference on Computer Supported
+  Cooperative Work}, CSCW '00, pages 241--250, New York, NY, USA, 2000. ACM.
+\newblock ISBN 1-58113-222-0.
+\newblock \doi{10.1145/358916.358995}.
+\newblock URL \url{http://doi.acm.org/10.1145/358916.358995}.
+
+\bibitem[Java et~al.(2007)Java, Song, Finin, and
+  Tseng]{Java:2007:WWT:1348549.1348556}
+Akshay Java, Xiaodan Song, Tim Finin, and Belle Tseng.
+\newblock Why we twitter: Understanding microblogging usage and communities.
+\newblock In \emph{Proceedings of the 9th WebKDD and 1st SNA-KDD 2007 Workshop
+  on Web Mining and Social Network Analysis}, WebKDD/SNA-KDD '07, pages 56--65,
+  New York, NY, USA, 2007. ACM.
+\newblock ISBN 978-1-59593-848-0.
+\newblock \doi{10.1145/1348549.1348556}.
+\newblock URL \url{http://doi.acm.org/10.1145/1348549.1348556}.
 
 \bibitem[Singh et~al.(2011)Singh, Mukherjee, and Mehta]{Singh2011}
 Vivek~Kumar Singh, Mousumi Mukherjee, and Ghanshyam~Kumar Mehta.
@@ -50,6 +79,11 @@ Diane Kelly and Jaime Teevan.
 \newblock ISSN 0163-5840.
 \newblock \doi{10.1145/959258.959260}.
 \newblock URL \url{http://doi.acm.org/10.1145/959258.959260}.
+
+\bibitem[Inc.(2013)]{UsingTwitterSearchAPI}
+Twitter Inc.
+\newblock Using the twitter search api, October 2013.
+\newblock URL \url{https://dev.twitter.com/docs/using-search}.
 
 \bibitem[Vryniotis(2013)]{DatumBoxTwitterSentiment}
 Vasilis Vryniotis.

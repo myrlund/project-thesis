@@ -184,7 +184,7 @@
 
 \thesistitle{Improving Movie Recommendations with Unpersonal Social Media Data} % Your thesis title - this is used in the title and abstract
 %-------------------------------------------------  
-\supervisor{Prof. Heri \textsc{Ramampiaro}} % You supervisor's name - this is used in the title page
+\supervisor{Prof. Heri \textsc{Ramampiaro} \\Prof. Helge \textsc{Langseth}} % You supervisor's name - this is used in the title page
 %-------------------------------------------------   
 \examiner{} % Your examiner's name - this is not currently used anywhere in the template, cite it with \examname if you want it
 %-------------------------------------------------   

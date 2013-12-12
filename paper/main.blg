@@ -5,45 +5,47 @@ The style file: unsrtnat.bst
 Database file #1: Bibliography.bib
 Warning--entry type for "DatumBoxTwitterSentiment" isn't style-file defined
 --line 77 of file Bibliography.bib
-You've used 9 entries,
+Warning--entry type for "UsingTwitterSearchAPI" isn't style-file defined
+--line 85 of file Bibliography.bib
+You've used 13 entries,
             2481 wiz_defined-function locations,
-            637 strings with 7005 characters,
-and the built_in function-call counts, 4342 in all, are:
-= -- 430
-> -- 151
-< -- 13
-+ -- 60
-- -- 42
-* -- 296
-:= -- 626
-add.period$ -- 44
-call.type$ -- 9
-change.case$ -- 18
-chr.to.int$ -- 9
-cite$ -- 9
-duplicate$ -- 235
-empty$ -- 399
-format.name$ -- 59
-if$ -- 999
+            674 strings with 8151 characters,
+and the built_in function-call counts, 6191 in all, are:
+= -- 621
+> -- 221
+< -- 17
++ -- 88
+- -- 62
+* -- 432
+:= -- 906
+add.period$ -- 67
+call.type$ -- 13
+change.case$ -- 26
+chr.to.int$ -- 13
+cite$ -- 13
+duplicate$ -- 328
+empty$ -- 561
+format.name$ -- 85
+if$ -- 1416
 int.to.chr$ -- 1
-int.to.str$ -- 10
-missing$ -- 7
-newline$ -- 66
-num.names$ -- 29
-pop$ -- 82
+int.to.str$ -- 14
+missing$ -- 10
+newline$ -- 95
+num.names$ -- 41
+pop$ -- 110
 preamble$ -- 1
-purify$ -- 9
+purify$ -- 13
 quote$ -- 0
-skip$ -- 173
+skip$ -- 236
 stack$ -- 0
-substring$ -- 221
-swap$ -- 79
-text.length$ -- 7
+substring$ -- 310
+swap$ -- 105
+text.length$ -- 9
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 63
+type$ -- 91
 warning$ -- 0
-while$ -- 37
+while$ -- 53
 width$ -- 0
-write$ -- 158
-(There was 1 warning)
+write$ -- 233
+(There were 2 warnings)

@@ -1,82 +1,34 @@
 % Chapter 3
 
-\chapter{Requirements} % Main chapter title
+\chapter{Design} % Main chapter title
 
 \label{Chapter3} % For referencing the chapter elsewhere, use \ref{Chapter1} 
 
-\lhead{Chapter 3. \emph{Requirements}} % This is for the header on each page - perhaps a shortened title
+\lhead{Chapter 3. \emph{Design}} % This is for the header on each page - perhaps a shortened title
 
-% \emph{How requirements were captured; discussion of major requirements (referring to Appendix A for details).}
+%----------------------------------------------------------------------------------------
+
+% \emph{How the product was designed, with discussion of design alternatives (referring to Appendix B for details).}
 % 
-% \emph{Forklar hvordan du satt opp kravene.}
+% \emph{Diskuter de viktigste funksjonene i ditt design og hvordan det har utviklet seg, fremhev noen nye/originale funksjoner.}
 % 
-% \emph{Men ikke ha med en fullstendig oversikt over kravene her!}
+% \emph{Ikke ha med design dokumentasjon her!}
 
-Although the methods described in this paper aims to be as agnostic as possible with regards to what type of sentiment carrying input is used, we have selected the microblogging service Twitter -- and the available Twitter data has some specific qualities we'll try to make use of to improve the quality of our results.
+The basic architecture is outlined in figure~\ref{fig:1_basic_architecture}. Our work will be aimed at the component labelled \emph{A}.
 
-\section{Relevant Qualities of Twitter Data} % (fold)
-\label{sec:relevant_qualities_of_twitter_data}
+\begin{figure}[h]
+  \centering
+    \includegraphics{Figures/01-high-level-architecture}
+  \caption{The basic architecture of a system described in this thesis. We mainly describe the component labelled \emph{A}.}
+  \label{fig:1_basic_architecture}
+\end{figure}
 
-As previously mentioned, ``Tweets'' can be \emph{favorited}, \emph{retweeted}, and \emph{replied to}.
-Additionally, we can tell how big reach an author has by counting the number of \emph{followers} he/she has, and use this as another indication of content popularity.
+The \emph{A} component is structured as illustrated in figure~\ref{fig:2_component_architecture}.
 
-We want to be able to use the data as a source of implicit ratings. To be able to, we need to quantify the significance of these verbs.
-Oard~and~Kim~\cite{Oard98implicitfeedback,Oard01modelinginformation} and Kelly~and~Teevan~\cite{Kelly03implicitfeedback} have developed a framework for classification of implicit feedback.
-They define three major categories for implicit feedback: examination, retention, and reference.
-
-We adapt it to the domain of Twitter data, and wind up with table~\ref{tab:behavior_class}.
-
-\begin{table}[h]
-  \begin{center}
-    \begin{tabular}{|llcl|}
-      \hline
-      \textbf{Original} & \textbf{Ours} & & \textbf{Action} \\
-      \hline
-      Examine   & Consume  & $\rightarrow$ & Follow \\
-      \hline
-      Annotate  & Evaluate & $\rightarrow$ & Reply \\
-      \hline
-      Retain    & Endorse  & $\rightarrow$ & Favorite \\
-      \hline
-      Reference & Forward  & $\rightarrow$ & Retweet \\
-      \hline
-    \end{tabular}
-  \end{center}
-  \caption{Classification of microblogging behavior}
-  \label{tab:behavior_class}
-\end{table}
-
-To clarify the classifications of table~\ref{tab:behavior_class}, let's break the terms down.
-
-\begin{description}
-  \item[Tweet]
-    A user posts content to Twitter, in the form of a new post.
-    A Tweet can have a maximum of 140 characters.
-    Due to the size restrictions, tweets often contain links to websites.
-  \item[Follow]
-    Users consume each others' content by following each other.
-    The number of followers users have range from 0 to more than 40 million.
-    Following is a one-way relationship, and there is often a big difference in the number of users following and being followed by a user.
-  \item[Reply]
-    Users can mention each other in tweets by prepending a username with ``@''.
-    This same mechanism is used to reply to others' content.
-    When replying, the content the Tweet was replying to is stored along with the reply, forming a conversation tree.
-  \item[Favorite]
-    Users can favorite content, which notifies the content owner and boosts the content in search results etc.
-    It is also trivial to extract all content a particular user has favorited.
-  \item[Retweet]
-    When a user chooses to retweet content, that content is ``forwarded'' to the user's followers, and boosts the content in search results etc.
-\end{description}
-
-% section relevant_qualities_of_twitter_data (end)
-
-\section{Twitter as a Data Source} % (fold)
-\label{sec:twitter_as_a_data_source}
-
-There are vast opportunities in managing to understand a data source with the qualities discussed above, but alas -- the diversity and free nature of Twitter as a publishing platform comes at a price: \emph{there is a lot of noise}.
-That is not to say that there is little relevant information, but when the service is designed to have such a low threshold for contributing content, a low signal-to-noise ratio seems inevitable.
-
-This problem of finding content carrying relevant information turns out to perhaps be the biggest challenge of the entire study.
-
-% section twitter_as_a_data_source (end)
+\begin{figure}[h]
+  \centering
+    \includegraphics{Figures/02-component-layout}
+  \caption{The layout of the system within component A.}
+  \label{fig:2_component_architecture}
+\end{figure}
 
