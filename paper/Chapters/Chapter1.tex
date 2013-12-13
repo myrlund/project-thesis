@@ -16,13 +16,13 @@ Many movie recommendation systems today use collaborative filtering techniques a
 
 I will take a somewhat untraditional approach in an attempt to mitigate these issues: can data mined from one of today's largest sources of user-generated content, Twitter, contribute enough relevant information to solve both the problem of data sparsity and result explanation?
 
-\subsection{Data sparsity in collaborative filtering}
+\subsection{Problems in collaborative filtering}
 
 The data sparsity problem has several sides to it~\cite{Su:2009:SCF:1592474.1722966}.
 
 Here, we will take a closer look at the \emph{cold start} problem -- or more specifically: the \emph{new item problem}. It occurs when a new item enters the system and there is no rating history to base similarity measures on, leaving a barebones collaborative filtering algorithm without anything to base predictions on -- until, of course, some users rate it. If this is the case for a large number of items, we say that we have poor \emph{coverage}.
 
-Second, 
+Furthermore, many collaborative filtering algorithms have a problem explaining why they come up with their predictions. If we're able to reliably find Twitter content to back our collaborative filtering predictions, we can use them as a way of providing a context to our recommendations.
 
 \subsection{Twitter}
 
@@ -56,7 +56,7 @@ As we shall see, many of these assumptions hold up poorly -- or hardly at all --
 
 This paper is organized as follows.
 
-Chapter~\ref{Chapter2} surveys relevant literature, similar applications, and provides an in-depth analysis of Twitter data and the Twitter API.
+Chapter~\ref{Chapter2} surveys relevant literature, similar applications, provides an in-depth analysis of Twitter data and the Twitter API, and reviews the sentiment classifier chosen for the implementation.
 Chapter~\ref{Chapter3} describes the system design, and reasoning behind central design choices.
 Chapter~\ref{Chapter4} describes the implementation, specifically the way the APIs are called, as well as central algorithms and how they are employed.
 In chapter~\ref{Chapter5} we'll look at the execution results, and see how they evaluate.

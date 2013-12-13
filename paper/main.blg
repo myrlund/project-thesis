@@ -9,43 +9,43 @@ Warning--entry type for "UsingTwitterSearchAPI" isn't style-file defined
 --line 85 of file Bibliography.bib
 You've used 13 entries,
             2481 wiz_defined-function locations,
-            674 strings with 8151 characters,
-and the built_in function-call counts, 6191 in all, are:
-= -- 621
-> -- 221
-< -- 17
-+ -- 88
-- -- 62
-* -- 432
-:= -- 906
-add.period$ -- 67
+            657 strings with 7788 characters,
+and the built_in function-call counts, 5881 in all, are:
+= -- 554
+> -- 251
+< -- 13
++ -- 99
+- -- 72
+* -- 422
+:= -- 890
+add.period$ -- 61
 call.type$ -- 13
 change.case$ -- 26
-chr.to.int$ -- 13
+chr.to.int$ -- 12
 cite$ -- 13
-duplicate$ -- 328
-empty$ -- 561
-format.name$ -- 85
-if$ -- 1416
-int.to.chr$ -- 1
+duplicate$ -- 317
+empty$ -- 534
+format.name$ -- 89
+if$ -- 1322
+int.to.chr$ -- 2
 int.to.str$ -- 14
-missing$ -- 10
-newline$ -- 95
+missing$ -- 11
+newline$ -- 89
 num.names$ -- 41
-pop$ -- 110
+pop$ -- 118
 preamble$ -- 1
 purify$ -- 13
 quote$ -- 0
-skip$ -- 236
+skip$ -- 204
 stack$ -- 0
-substring$ -- 310
-swap$ -- 105
-text.length$ -- 9
+substring$ -- 242
+swap$ -- 92
+text.length$ -- 8
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 91
 warning$ -- 0
-while$ -- 53
+while$ -- 49
 width$ -- 0
-write$ -- 233
+write$ -- 218
 (There were 2 warnings)

@@ -45,45 +45,40 @@ Vivek~Kumar Singh, Mousumi Mukherjee, and Ghanshyam~Kumar Mehta.
 \newblock \doi{10.1007/978-3-642-22786-8_83}.
 \newblock URL \url{http://dx.doi.org/10.1007/978-3-642-22786-8_83}.
 
-\bibitem[Cho and Kang(2012)]{ChoKang2012}
-Sang-Hyun Cho and Hang-Bong Kang.
-\newblock Statistical text analysis and sentiment classification in social
-  media.
-\newblock In \emph{Systems, Man, and Cybernetics (SMC), 2012 IEEE International
-  Conference on}, pages 1112--1117, 2012.
-\newblock \doi{10.1109/ICSMC.2012.6377880}.
-
-\bibitem[Bakshy et~al.(2009)Bakshy, Karrer, and Adamic]{Bakshy2009}
-Eytan Bakshy, Brian Karrer, and Lada~A. Adamic.
-\newblock Social influence and the diffusion of user-created content.
-\newblock In \emph{Proceedings of the 10th ACM conference on Electronic
-  commerce}, EC '09, pages 325--334, New York, NY, USA, 2009. ACM.
-\newblock ISBN 978-1-60558-458-4.
-\newblock \doi{10.1145/1566374.1566421}.
-\newblock URL \url{http://doi.acm.org/10.1145/1566374.1566421}.
-
-\bibitem[Oard and Kim(1998)]{Oard98implicitfeedback}
-Douglas Oard and Jinmook Kim.
-\newblock Implicit feedback for recommender systems.
-\newblock In \emph{in Proceedings of the AAAI Workshop on Recommender Systems},
-  pages 81--83, 1998.
-
-\bibitem[Oard and Kim(2001)]{Oard01modelinginformation}
-Douglas~W. Oard and Jinmook Kim.
-\newblock Modeling information content using observable behavior, 2001.
-
-\bibitem[Kelly and Teevan(2003)]{Kelly03implicitfeedback}
-Diane Kelly and Jaime Teevan.
-\newblock Implicit feedback for inferring user preference: a bibliography.
-\newblock \emph{SIGIR Forum}, 37\penalty0 (2):\penalty0 18--28, September 2003.
-\newblock ISSN 0163-5840.
-\newblock \doi{10.1145/959258.959260}.
-\newblock URL \url{http://doi.acm.org/10.1145/959258.959260}.
-
 \bibitem[Inc.(2013)]{UsingTwitterSearchAPI}
 Twitter Inc.
 \newblock Using the twitter search api, October 2013.
 \newblock URL \url{https://dev.twitter.com/docs/using-search}.
+
+\bibitem[Go et~al.(2009{\natexlab{a}})Go, Huang, and Bhayani]{go2009twitter}
+Alec Go, Lei Huang, and Richa Bhayani.
+\newblock Twitter sentiment analysis.
+\newblock \emph{Entropy}, 17, 2009{\natexlab{a}}.
+
+\bibitem[Go et~al.(2009{\natexlab{b}})Go, Bhayani, and
+  Huang]{go2009twitterdistant}
+Alec Go, Richa Bhayani, and Lei Huang.
+\newblock Twitter sentiment classification using distant supervision.
+\newblock \emph{CS224N Project Report, Stanford}, pages 1--12,
+  2009{\natexlab{b}}.
+
+\bibitem[Pak and Paroubek(2010)]{pak2010twitter}
+Alexander Pak and Patrick Paroubek.
+\newblock Twitter as a corpus for sentiment analysis and opinion mining.
+\newblock In \emph{LREC}, 2010.
+
+\bibitem[Agarwal et~al.(2011)Agarwal, Xie, Vovsha, Rambow, and
+  Passonneau]{agarwal2011sentiment}
+Apoorv Agarwal, Boyi Xie, Ilia Vovsha, Owen Rambow, and Rebecca Passonneau.
+\newblock Sentiment analysis of twitter data.
+\newblock In \emph{Proceedings of the Workshop on Languages in Social Media},
+  pages 30--38. Association for Computational Linguistics, 2011.
+
+\bibitem[Kouloumpis et~al.(2011)Kouloumpis, Wilson, and
+  Moore]{kouloumpis2011twitter}
+Efthymios Kouloumpis, Theresa Wilson, and Johanna Moore.
+\newblock Twitter sentiment analysis: The good the bad and the omg!
+\newblock In \emph{ICWSM}, 2011.
 
 \bibitem[Vryniotis(2013)]{DatumBoxTwitterSentiment}
 Vasilis Vryniotis.

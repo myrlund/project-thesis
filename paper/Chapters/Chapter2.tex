@@ -10,41 +10,17 @@
 
 % \emph{Review of relevant literature; review of similar software products or tools.}
 
-\section{Relevant literature} % (fold)
-\label{sec:relevant_literature}
-
-The task of improving recommendations through sentiment analysis of social media data requires digging into several fields of study.
+\section{Similar applications} % (fold)
+\label{sec:similar_applications}
 
 Some people have attempted the same task as in this thesis, albeit with another type of social data.
 Singh et al. \cite{Singh2011} investigated a ``formulation, where [they] combined the content-based approach with a sentiment analysis task to improve the recommendation results.''
 Their approach is very similar to our approach, but differs in two important ways:
+
 \begin{enumerate}
   \item It uses user reviews from IMDB as content source\footnote{IMDB does not provide open API access at the time of writing.}, and not a more general source of sentiment-carrying content -- as in our case, with Twitter.
   \item It is not designed to enhance presupplied recommendations, but rather to generate its own based on genre input.
 \end{enumerate}
-
-As we're looking at data from Twitter, the sentiment analysis task is a bit different than usual, as it needs to operate on texts that are all less than 140 characters long. More often than not, we will in fact need to work with texts that are merely one or two sentences long.
-Cho \& Kang \cite{ChoKang2012} ``propose a method of classifying tendencies and opinions in texts of multiple sentence length extracted from social media and covering both formal and informal vocabularies''.
-Among the things the more unusual things they condider when analysing content is posision of each sentence and emotion icons, which is quite important in short, concise text like ones found on Twitter.
-We'll be taking a closer look at this method for the actual sentiment analysis task.
-
-
-% http://blog.datumbox.com/how-to-build-your-own-twitter-sentiment-analysis-tool/
-
-\emph{@TODO More.}
-
-% section relevant_literature (end)
-
-\section{Similar applications} % (fold)
-\label{sec:similar_applications}
-
-What spawned the idea of using an unpersonal social service like Twitter as a content source for filtering content is that Netflix recently rolled out personal social recommendations of their content.
-For this they use Facebook.
-
-One huge limitation to the Facebook approach is that Facebook doesn't expose how ``close'' you are to your various friends.
-% People influence each other in different ways.
-
-Content sharing patterns (Social influence and the diffusion of user-created content): \cite{Bakshy2009}.
 
 % section similar_applications (end)
 
@@ -56,7 +32,6 @@ Content sharing patterns (Social influence and the diffusion of user-created con
 
 
 \emph{@TODO: Something about what terms we're searching for, using only title etc. Ref. implementation with filtered hashtags etc.}
-
 
 % ----------------------------------------------------------------------------------------------------------------------
 
@@ -70,91 +45,101 @@ This leaves us with a source of textual data that is:
   \item[Concise] Due to limitations on content length, users must express themselves concisely.
 \end{description}
 
-Furthermore, the Twitter search API\footnote{\url{https://dev.twitter.com/docs/api/1.1/get/search/tweets}} supports returning both \emph{popular} and \emph{recent} content, or \emph{a mix} of the two.
-This enables two interesting approaches to both filtering and annotating the recommended content, in that we can treat popular and recent comments separately.
-
-\subsection{What makes a Tweet ``popular''?}
-
-As previously mentioned, ``Tweets'' can be \emph{favorited}, \emph{retweeted}, and \emph{replied to}.
-Additionally, we can tell how big reach an author has by counting the number of \emph{followers} he/she has, and use this as another indication of content popularity.
-
-We want to be able to use the data as a source of implicit ratings. To be able to, we need to quantify the significance of these verbs.
-Oard~and~Kim~\cite{Oard98implicitfeedback,Oard01modelinginformation} and Kelly~and~Teevan~\cite{Kelly03implicitfeedback} have developed a framework for classification of implicit feedback.
-They define three major categories for implicit feedback: examination, retention, and reference.
-
-We adapt it to the domain of Twitter data, and wind up with table~\ref{tab:behavior_class}.
-
-\begin{table}[h]
-  \begin{center}
-    \begin{tabular}{|llcl|}
-      \hline
-      \textbf{Original} & \textbf{Ours} & & \textbf{Action} \\
-      \hline
-      Examine   & Consume  & $\rightarrow$ & Follow \\
-      \hline
-      Annotate  & Evaluate & $\rightarrow$ & Reply \\
-      \hline
-      Retain    & Endorse  & $\rightarrow$ & Favorite \\
-      \hline
-      Reference & Forward  & $\rightarrow$ & Retweet \\
-      \hline
-    \end{tabular}
-  \end{center}
-  \caption{Classification of microblogging behavior}
-  \label{tab:behavior_class}
-\end{table}
-
-% To clarify the classifications of table~\ref{tab:behavior_class}, let's break the terms down.
+% \subsection{What makes a Tweet popular?}
 % 
-% \begin{description}
-%   \item[Tweet]
-%     A user posts content to Twitter, in the form of a new post.
-%     A Tweet can have a maximum of 140 characters.
-%     Due to the size restrictions, tweets often contain links to websites.
-%   \item[Follow]
-%     Users consume each others' content by following each other.
-%     The number of followers users have range from 0 to more than 40 million.
-%     Following is a one-way relationship, and there is often a big difference in the number of users following and being followed by a user.
-%   \item[Reply]
-%     Users can mention each other in tweets by prepending a username with ``@''.
-%     This same mechanism is used to reply to others' content.
-%     When replying, the content the Tweet was replying to is stored along with the reply, forming a conversation tree.
-%   \item[Favorite]
-%     Users can favorite content, which notifies the content owner and boosts the content in search results etc.
-%     It is also trivial to extract all content a particular user has favorited.
-%   \item[Retweet]
-%     When a user chooses to retweet content, that content is ``forwarded'' to the user's followers, and boosts the content in search results etc.
-% \end{description}
+% As briefly mentioned, ``Tweets'' can be \emph{favorited}, \emph{retweeted}, and \emph{replied to}. Additionally, we can tell how big reach an author has by counting the number of \emph{followers} he/she has, and use this as another indication of content popularity.
+% 
+% We want to be able to use the data as a source of implicit ratings. To be able to, we need to quantify the significance of these verbs.
+% Oard~and~Kim~\cite{Oard98implicitfeedback,Oard01modelinginformation} and Kelly~and~Teevan~\cite{Kelly03implicitfeedback} have developed a framework for classification of implicit feedback.
+% They define three major categories for implicit feedback: examination, retention, and reference.
+% 
+% We adapt it to the domain of Twitter data, and wind up with table~\ref{tab:behavior_class}.
+% 
+% \begin{table}[h]
+%   \begin{center}
+%     \begin{tabular}{|llcl|}
+%       \hline
+%       \textbf{Original} & \textbf{Ours} & & \textbf{Action} \\
+%       \hline
+%       Examine   & Consume  & $\rightarrow$ & Follow \\
+%       \hline
+%       Annotate  & Evaluate & $\rightarrow$ & Reply \\
+%       \hline
+%       Retain    & Endorse  & $\rightarrow$ & Favorite \\
+%       \hline
+%       Reference & Forward  & $\rightarrow$ & Retweet \\
+%       \hline
+%     \end{tabular}
+%   \end{center}
+%   \caption{Classification of microblogging behavior}
+%   \label{tab:behavior_class}
+% \end{table}
+% 
+% To clarify the classifications of table~\ref{tab:behavior_class}, let's break the terms down.
 
-Twitter does not, at the time of writing, allow querying of these qualities directly. However, they do have a concept of content popularity, and it's based off this set of qualities.
+
+% Twitter does not, at the time of writing, allow querying of these qualities directly. However, they do have a concept of content popularity, and it's based off this set of qualities.
 
 \subsection{Relevant parts of the Twitter API} % (fold)
 \label{sub:relevant_parts_of_the_twitter_api}
 
-The various endpoints in the Twitter REST API is divided into 16 categories:
+The various endpoints in the Twitter REST API is divided into 16 categories, spanning everything from search and user timelines to suggested users to follow and spam reporting. A full overview of the available API endpoints is available on Twitter's REST API pages\footnote{\url{https://dev.twitter.com/docs/api/1.1}}.
 
-\begin{enumerate}
-  \item Timelines
-  \item Tweets
-  \item Search
-  \item Streaming
-  \item Direct Messages
-  \item Friends & Followers
-  \item Users
-  \item Suggested Users
-  \item Favorites
-  \item Lists
-  \item Saved Searches
-  \item Places & Geo
-  \item Trends
-  \item Spam Reporting
-  \item OAuth
-  \item Help
-\end{enumerate}
-
-Of these, only two are of relevance, namely \emph{Search} and \emph{OAuth}.
+Of these, only two categories are of relevance, namely \emph{Search} and \emph{OAuth}.
 
 OAuth is only relevant because it enables us to search, so we won't elaborate further on how we use it.
+
+\subsubsection{The Twitter search API}
+\label{ssec:search_api}
+
+The Twitter search API\footnote{\url{https://dev.twitter.com/docs/api/1.1/get/search/tweets}} is a JSON-based REST API, and it takes the following notable parameters:
+
+\begin{description}
+  \item[\texttt{q}] \hfill \\
+    A UTF-8, URL-encoded search query of 1,000 characters maximum, including operators.
+  \item[\texttt{result\_type}] \hfill \\
+    Specifies what type of search results you would prefer to receive.
+\end{description}
+
+In addition, there are parameters to control the number of messages returned, language, date ranges etc.
+
+The \texttt{q} parameter, the search query, is obviously of great importance, as it is the one we primarily will be using to target our search.
+
+The \texttt{q} parameter supports a wide range of operators.\footnote{The full list is available here: \url{https://dev.twitter.com/docs/using-search}} It supports the typical boolean operators (AND, OR, and NOT), as well as specifying exact search phrases, but it also supports more domain-specific operators:
+
+\begin{description}
+  \item[From/to/referencing user] \hfill \\
+    Only return messages from or to a specific user, or simply mentioning a specific user somewhere in its message.
+  \item[Date ranges] \hfill \\
+    Support for ``since'' and ``until'' constraints.
+  \item[Other] \hfill \\
+    Support for things like only returning messages with links, messages submitted via a specific client type, and messages asking a question.
+\end{description}
+
+All operators can be combined, and the regular space serves as an AND clause in this regard.
+
+In addition to the aforementioned operators, the API supports returning tweets matching either a positive or negative sentiment -- a feature which should seem very relevant to the task at hand. However, no information was seemingly available on the mechanics behind it, and after some manual testing it was concluded that it also lacked quite severely in its precision.
+
+The other parameter central to our application is the \texttt{result\_type}. It allows us to switch between three possible heuristics for which results that are returned from the search. We have the choice between three valid values: \texttt{recent}, \texttt{popular}, or \texttt{mixed} tweets -- the latter being a combination of the first two, and also the default.
+
+To know which one to choose, we need to know what constitutes a popular tweet.
+
+\subsubsection{What constitutes a popular Tweet?}
+
+On Twitter, there are several ways of interacting with the system. Terms like ``follow'', ``mention'', ``favorite'', and ``retweet'' are all more or less domain-specific to Twitter, so before moving on -- let's break them down.
+
+\begin{description}
+  \item[Follow] \hfill \\
+    Users consume each others' content by following each other. The number of followers users have range from 0 to more than 40 million. Following is a one-way relationship, and there is often a big difference in the number of users \emph{following} and \emph{being followed by} a user.
+  \item[Reply] \hfill \\
+    Users can mention each other in tweets by prepending a username with ``@''. This same mechanism is used to reply to others' content. When replying, the content the Tweet was replying to is stored along with the reply, forming a conversation tree.
+  \item[Favorite] \hfill \\
+    Users can favorite content, which notifies the content owner and boosts the content in search results etc. It is also trivial to extract all content a particular user has favorited.
+  \item[Retweet] \hfill \\
+    When a user chooses to retweet another user's content, that content is ``forwarded'' to the user's followers.
+\end{description}
+
+One of the greatest benefits of Twitter as a data source is that all these interactions are completely transparent\footnote{Users can make their own content ``private'', but their interactions with other users' non-private content are nonetheless public.}, and can thus be used freely when querying for popular content.
 
 % subsection relevant_parts_of_the_twitter_api (end)
 
@@ -187,6 +172,59 @@ This problem of finding content carrying relevant information turns out to perha
 \section{The sentiment classifier} % (fold)
 \label{sec:the_sentiment_classifier}
 
+Much has already been written on the topic of sentiment analysis of Twitter data~\cite{go2009twitter, go2009twitterdistant, pak2010twitter, agarwal2011sentiment, kouloumpis2011twitter}. This paper, however, is not about improving or analyzing these methods and techniques. What is required is a technique that is good enough to \emph{indicate the sentiment of a set of messages}.
 
+For sentiment analysis, I have therefore selected the Twitter sentiment classifier provided by DatumBox, a machine learning SaaS. They provide a broad suite of services within many fields of machine learning. See figure~\ref{fig:datumbox_api} for an overview of their current functionality within the document classification category\footnote{The complete list is currently available at \url{http://www.datumbox.com/api-sandbox/}.}.
 
-% section the_sentiment_classifier (end)
+\begin{figure}[h]
+  \centering
+    \includegraphics[width=\textwidth]{Figures/datumbox_api}
+  \caption{The current endpoints in the DatumBox API in the category ``Document Classification''.}
+  \label{fig:datumbox_api}
+\end{figure}
+
+The classifier used for Twitter sentiment classification is the Binarized Naïve Bayes, after having outperformed SVM, Max Entropy and others on the test set. The people at DatumBox explain their choice of algorithm in an article on their service blog~\cite{DatumBoxTwitterSentiment}.
+
+With the approach taken, texts are classified as either positive, neutral, or negative.
+A training set of 1.2 million tweets were tokenized ``by extracting their bigrams and by taking into account the URLs, the hash tags, the usernames and the emoticons'', and were subsequently fed into a Mutual Information algorithm for feature selection.
+
+With a 10-fold cross-validation, the best performing classifier allegiedly achieves an accuracy of 83.26\%.
+
+The naïve Bayes classifier is described in detail in section~\ref{ssec:nb_classifier}.
+
+\section{The Netflix rating dataset}
+\label{sec:netflix_dataset}
+
+For evaluating the results, the Netflix rating dataset was used as a benchmark.
+
+The accompanying Readme file descibes the dataset in the following way:
+
+\begin{quote}
+  The movie rating files contain over 100 million ratings from 480 thousand
+  randomly-chosen, anonymous Netflix customers over 17 thousand movie titles.  The
+  data were collected between October, 1998 and December, 2005 and reflect the
+  distribution of all ratings received during this period.  The ratings are on a
+  scale from 1 to 5 (integral) stars.
+\end{quote}
+
+The data used in this work consists of two different types of files.
+
+First, an overview of available movies is available in CSV format, with lines containing the following fields:
+
+\begin{enumerate}
+  \item Movie ID
+  \item Year of release
+  \item Movie title
+\end{enumerate}
+
+In a separate directory, 17770 files named by their associated movie ID contain lines of individual ratings, with the following attributes:
+
+\begin{enumerate}
+  \item Customer ID
+  \item Rating
+  \item Date
+\end{enumerate}
+
+Unfortunately, the Netflix rating dataset is no longer publicly available, allegedly due to a lawsuit regarding privacy concerns\footnote{\url{http://www.wired.com/threatlevel/2009/12/netflix-privacy-lawsuit/}}.
+
+For more details on how the data was used to evaluate results, please see chapter~\ref{Chapter5}.
