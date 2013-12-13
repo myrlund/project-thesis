@@ -1,0 +1,17 @@
+Twitter kun som forsterkende faktor
+Gi kontekst til Netflix-ratings:
+  - legge til adjektiver?
+  - kontrastifisere positive/negative adjektiver. ordsky?
+
+_Hvor ligger nytteverdien?_
+  - lettere å bryte ned problemstillingen
+
+(Anbefalinger til CD Go?)
+
+Future work er viktig!
+  CRF og sentimentanalyse?
+    klassifisere bort tekster? filtrere i et første steg.
+  Hva vil jeg jobbe med til våren?
+  Nyere filmer -- tråle IMDB for nye filmer.
+
+1 underkapittel -> 0 underkapitler
