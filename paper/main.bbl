@@ -1,4 +1,4 @@
-\begin{thebibliography}{13}
+\begin{thebibliography}{16}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -86,6 +86,29 @@ Vasilis Vryniotis.
   2013.
 \newblock URL
   \url{http://blog.datumbox.com/how-to-build-your-own-twitter-sentiment-analysis-tool/}.
+
+\bibitem[Peng et~al.(2005)Peng, Long, and Ding]{1453511}
+H.~Peng, Fulmi Long, and C.~Ding.
+\newblock Feature selection based on mutual information criteria of
+  max-dependency, max-relevance, and min-redundancy.
+\newblock \emph{Pattern Analysis and Machine Intelligence, IEEE Transactions
+  on}, 27\penalty0 (8):\penalty0 1226--1238, 2005.
+\newblock ISSN 0162-8828.
+\newblock \doi{10.1109/TPAMI.2005.159}.
+
+\bibitem[Pang et~al.(2002)Pang, Lee, and Vaithyanathan]{pang2002thumbs}
+Bo~Pang, Lillian Lee, and Shivakumar Vaithyanathan.
+\newblock Thumbs up?: sentiment classification using machine learning
+  techniques.
+\newblock In \emph{Proceedings of the ACL-02 conference on Empirical methods in
+  natural language processing-Volume 10}, pages 79--86. Association for
+  Computational Linguistics, 2002.
+
+\bibitem[Nigam(1999)]{Nigam99usingmaximum}
+Kamal Nigam.
+\newblock Using maximum entropy for text classification.
+\newblock In \emph{In IJCAI-99 Workshop on Machine Learning for Information
+  Filtering}, pages 61--67, 1999.
 
 \bibitem[Cucerzan(2007)]{NamedEntityDisambiguationWiki}
 Silviu Cucerzan.

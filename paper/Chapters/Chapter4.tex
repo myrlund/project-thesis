@@ -33,24 +33,50 @@ The final application is a highly configurable command-line tool. Its interface 
 
 The only somewhat complex entity being processed by the system is the Twitter messages. These are represented in the system as instances a simple \verb+Tweet+ class. It has a small set of default values and utility methods, but in practice, the objects behave as dictionaries.
 
-Each \verb+Tweet+ object is augmented with additional metadata on its way through the system, until they are reduced to real-numbered predictions and discarded in the ``rating predicion'' execution step.
+Each \verb+Tweet+ object is augmented with additional metadata on its way through the system, until the ``rating predicion'' step, where they are reduced to real-numbered predictions and discarded.
 
 \section{Data gathering} % (fold)
 \label{sec:data_gathering_impl}
 
-As was soon found out after the initial tinkerings with the Twitter API began, the service has a high noise ratio. Therefore, every opportunity was taken to refine and tweak the search queries used to gather content. Luckily, the Twitter API has a quite extensive search interface, with many ways of tweaking the results (details in section~\ref{ssec:search_api}).
+As was soon found out after the initial tinkerings with the Twitter API began, the service has a high noise ratio. An example of this is the search results depicted in figure~\ref{fig:search_simple}. A simple search for the movie title ``The Usual Suspects'' returns only noisy results -- none of them express any sort of sentiment about the actual movie.
+
+\begin{figure}[h]
+  \centering
+    \includegraphics{Figures/search_simple}
+  \caption{A simple search for ``The Usual Suspects'' gives only noisy results.}
+  \label{fig:search_simple}
+\end{figure}
+
+Due to this noisiness, every opportunity was taken to refine and tweak the search queries used to gather content. Luckily, the Twitter API has a quite extensive search interface, with many ways of tweaking the results (details in section~\ref{ssec:search_api}).
 
 After much trial and failure, the following settings seem to yield good results for typical well-known movies:
 
 \begin{description}
   \item[Title as exact phrase] \hfill \\
-    Ensure that the title is searched for in its entirety, as a singular phrase and not just the individual words. In the Twitter API this is done by enclosing the title in quotation marks, as such: \verb+"pulp fiction"+, instead of \verb+pulp fiction+.
+    Ensure that the title is searched for in its entirety, as a singular phrase and not just the individual words. In the Twitter API this is done by enclosing the title in quotation marks, as such: \texttt{"The Usual Suspects"}, instead of \verb|The Usual Suspects|.
   \item[Exclude noisy terms] \hfill \\
-  Exclude tweets containing the following terms\footnote{Any time a set of irrelevant results shared a common term, it would be added to the list. There are probably many ways of fine-tuning this further.}: ``download'', ``stream'', ``\#nw'', ``\#nowwatching'', and ``RT''.
+    Exclude tweets containing the following terms\footnote{Any time a set of irrelevant results shared a common term, it would be added to the list. There are probably many ways of fine-tuning this further.}: \texttt{download}, \texttt{stream}, \texttt{\#nw}, \texttt{\#nowwatching}, and \texttt{RT}.
+  \item[Add domain keyword as term] \hfill \\
+    Some movies with a degree of cult status, such as ``The Usual Suspects''\footnote{\url{http://www.imdb.com/title/tt0114814/}}, can inspire usage of their titles as expressions in other contexts. This can lead to noisy results when they are used without referring to the movie. Some examples of this can be seen in figure~\ref{fig:search_simple_filtered}. Adding the domain term \texttt{movie} to the query rids us of many of these, as shown in figure~\ref{fig:search_filtered}. As we will see later, this still does not suffice for a lot of less-known movies.
 \end{description}
 
-Then remained the choice between the two modes of search: ``popular'', ``recent'', or the optional combination of the two.
+\begin{figure}[h]
+  \centering
+    \includegraphics{Figures/search_simple_filtered}
+  \caption{Without a domain term, many queries still return a lot of noise. This is the result of searching for \texttt{"The Usual Suspects" movie -download -stream -\#nw -\#nowwatching -RT}.}
+  \label{fig:search_simple_filtered}
+\end{figure}
 
+\begin{figure}[h]
+  \centering
+    \includegraphics{Figures/search_filtered}
+  \caption{The results of searching for \texttt{"The Usual Suspects" movie -download -stream -\#nw -\#nowwatching -RT}. A lot of noise has been eliminated, and most results are about the movie in questions.}
+  \label{fig:search_filtered}
+\end{figure}
+
+Then remained the choice between the three modes of search: ``popular'', ``recent'', or ``mixed''.
+
+@TODO Explain choice of mixed.
 
 % section data_retrieval (end)
 
@@ -61,8 +87,6 @@ A central part of the system is the sentiment classification of the Twitter resu
 
 This section will take an in-depth look at the techniques the DatumBox service utilizes.
 
-% The sentiment classifier has three classes: ``positive'', ``negative'', and ``neutral''. The training set, consisting of 
-
 To get us started, this is how DatumBox themselves describe their classifier~\cite{DatumBoxTwitterSentiment}:
 
 \begin{quote}
@@ -71,58 +95,47 @@ To get us started, this is how DatumBox themselves describe their classifier~\ci
   In order to select the best features we used several different algorithms and at the end we chose the Mutual Information. Finally after performing several tests with various models and configurations we selected the Binarized Naïve Bayes as the best performing classifier for the particular problem (strangely enough Naïve Bayes beat SVM, Max Entropy and other classifiers which are known to perform usually better than NB). To evaluate the results we used the 10-fold cross-validation method and our best performing classifier achieves an accuracy of 83.26\%.
 \end{quote}
 
-The next section will describe the naïve Bayes classifier in detail.
+There exists work which supports this results, where Naive Bayes outperforms SVM and Max Entropy in classifying Twitter messages~\cite{go2009twitter}.
 
-\subsection{The Naïve Bayes Classifier}
+The next sections will in turn describe feature selection by Mutual Information, and the Naive Bayes classifier.
+
+\subsection{Feature selection by Mutual Information} % (fold)
+\label{sub:feature_selection_by_mutual_information}
+
+When selecting features one needs need a selection criteria. Typical approaches include Max-Dependency, Max-Relevance, and Min-Redundancy~\cite{1453511}. As an example, we'll have a quick look at the Max-Relevance scheme.
+
+Max-Relevance involves choosing the features with the highest relevance to the target class $c$, and we typically characterize the concept of relevance in terms of mutual information. The mutual information of two random, discrete variables $X$ and $Y$ is given by~\eqref{eq:mutual_information}.
+
+\begin{equation}
+  I(X; Y) = \sum_{x \in X} \sum_{y \in Y} P(x, y) \log \frac{P(x, y)}{P(x) P(y)}
+  \label{eq:mutual_information}
+\end{equation}
+
+Given a feature vector $f$ of length $n$, we want its $m$ most relevant features with respect to class $c$. The relevance of each feature $f_i$ is measured in order of its mutual information with the class $c$, ie. $I(f_i; c)$.
+
+Thus, to extract the $m$ most relevant features with regard to class $c$, we simply order them in descending order by their $I(f_i; c)$, and keep the first $m$ elements.
+
+% subsection feature_selection_by_mutual_information (end)
+
+\subsection{The Naive Bayes classifier}
 \label{ssec:nb_classifier}
 
-The naïve Bayes classifier has several both strengths and weaknesses, and in many ways its weaknesses enable its strengths.
+To describe the Naive Bayes classifier we will use the bag-of-features framework~\cite{pang2002thumbs}.
 
-The most important of these qualities is found in the name of the classifier itself, ``naïve'', which comes from the algorithm's strong independence assumptions. These assumptions result in a very simple model that is both efficient to run and easy to implement. Although it tends to oversimplify the relations within the data, it often performs well enough to warrant the tradeoff.
+Let ${f_1, f_2, ..., f_m}$ be a set of $m$ features, and let $n_i(d)$ be the number of times $f_i$ occurs in document $d$. We can then represent each document $d$ as a vector $\vec{d} = (n_1(d), n_2(d), ..., n_m(d))$. The training data being ``evenly distributed across the 3 categories''~\cite{DatumBoxTwitterSentiment}, the probability distribution $P(C)$ over the possible categories, $C$, is constant. We can therefore use the Maximum Likelihood approach to build our hypothesis, and simplify our calculations.
 
-The ``Bayes'' part of the classifier's name takes its name from the probabilistic model on which it is based, which strongly relies on Bayes' theorem.
-
-The task of classifying text is viewed as a maximization problem, where we want to choose the maximally probable class based on our knowledge -- our evidence. The probability of class $C$ given $n$ features $F_1,...,F_n$ can be expressed in the following way:
+First, Bayes' rule tells us that
 
 \begin{equation}
-  P(C|F_1,...,F_n)
+  P(c | d) = \frac{P(c) P(d | c)}{P(d)}
 \end{equation}
 
-However, this model is infeasable if $n$ is very large, or each feature can take on a large number of values. Bayes' rule allows for the model to be reformulated in the following way:
+where neither $P(d)$ nor $P(c)$ play any role in predicting $c$.
+
+By assuming that the features $f_i$ are conditionally independent given their classes, we can formulate a maximum likelihood hypothesis which can be used to classify documents:
 
 \begin{equation}
-  P(C|F_1,...,F_n) = \frac{P(C) P(F_1,...,F_n|C)}{P(F_1,...,F_n)}
-  \label{eq:stat_dep}
-\end{equation}
-
-This is much more desirable, as calculating these factors is a much more tangible task than attempting to handle $P(C|F_1,...,F_n)$ directly.
-
-As mentioned, the naïve Bayes has strong independence assumptions -- more specifically it assumes the features $F$ of the model to be conditionally independent, given the class $C$.
-
-As an example, $A$ and $B$ are conditionally independent given $C$ if:
-
-\begin{equation}
-  P(A \cap B | C) = P(A|C) P(B|C)
-\end{equation}
-
-This allows us to rewrite~\eqref{eq:stat_dep} to the following:
-
-\begin{align}
-  P(C|F_1,...,F_n) &= \frac{P(C) P(F_1,...,F_n|C)}{P(F_1,...,F_n)} \\
-                   &= \frac{P(C) \prod_{i=1}^n P(F_n|C)}{P(F_1,...,F_n)}
-\end{align}
-
-However, the $P(F_1,...,F_n)$ in the denominator is constant. For the classifier we only need the probabilities relative to each other, and this lets us simplify a bit further:
-
-\begin{equation}
-  P(C|F_1,...,F_n) \propto P(C) \prod_{i=1}^n P(F_n|C)
-  \label{eq:bayes_final}
-\end{equation}
-
-By maximizing~\eqref{eq:bayes_final} using the maximum a posteriori decision rule (MAP), we can build our classifier.
-
-\begin{equation}
-  \text{classify}(f_1, ..., f_n) = \argmax_c P(C = c) \prod_{i=1}^n P(F_i = f_i| C = c)
+  h_{\text{ML}}(d) = \argmax_{c \in C} \prod_{i=1}^m P(f_i | c)^{n_i(d)}
 \end{equation}
 
 \subsection{Other issues}
@@ -131,9 +144,41 @@ When calling the DatumBox API, the best results were achieved when removing the 
 
 % section sentiment_analysis (end)
 
-\section{Evaluating sentiment} % (fold)
-\label{sec:evaluating_sentiment}
+\subsection{Alternative approaches}
+
+Two of the most relevant alternatives to the Naive Bayes, SVM and Max Entropy, are also perfectly capable of performing sentiment classification. This section will describe them briefly, with emphasis on how they perform the sentiment classification task. This is well described in the literature~\cite{pang2002thumbs}, so this survey will not go into great detail.
+
+Max Entropy has been shown to perform several text classification tasks often better than the Naive Bayes, but it also sometimes performs worse~\cite{Nigam99usingmaximum}. The underlying principle of maximum entropy is that without further knowledge, uniform distributions should always be preferred. Training data lay constraints on the distribution, and let us know where the most uniform solutions are.
+
+SVM is a maximal @TODO
 
 
+\section{Rating prediction} % (fold)
+\label{sec:rating_prediction}
 
-% section evaluating_sentiment (end)
+For rating prediction, the goal is to convert a set of sentiments into a single real number. The test set from Netflix uses integers from 1 to 5 inclusive, so the number should be within that range.
+
+A simple linear solution was implemented, where a single sentiment $s$ is mapped into a real rating $r$ in the following way:
+
+\begin{align*}
+  r(\text{Positive}) &\rightarrow 5 \\
+  r(\text{Neutral})  &\rightarrow 3 \\
+  r(\text{Negative}) &\rightarrow 1
+\end{align*}
+
+The predicted rating $\hat{r}$ of a set of sentiments $S$ of size $n$ is defined as the mean of its individual sentiment values:
+
+\begin{equation}
+  \hat{r}(S) = \frac{1}{n} \sum_{s \in S} r(s)
+\end{equation}
+
+% section rating_prediction (end)
+
+\section{Implementation of evaluation system} % (fold)
+\label{sec:evaluation_impl}
+
+To be able to consistently map the predictions back to the test set, the sample movies are drawn from the test set's own database. This set is comprised of a little over 17 thousand movies, and the only metadata available -- apart from the title -- is the year of release.
+
+However, it soon became interesting to examine the difference in performance for popular and less-popular movies, and the system thus needed the ability to make this distinction. Therefore, IMDB's top 250 movies\footnote{\url{http://www.imdb.com/chart/top}} were dumped to a CSV file, and the 174 movies that matched ones in the evaluation set were marked as popular. This enabled the system to optionally restrict the drawn test sample to only those present in this list.
+
+Although the movies' metadata is preloaded into a SQLite database, their individual benchmark ratings are stored in CSV files on disk and are loaded on demand for each prediction to be evaluated. There is relatively little to gain from speeding up this process, as the two remote APIs -- Twitter and DatumBox -- are consulted many times for every prediction made, and are a much bigger bottleneck in this implementation.
