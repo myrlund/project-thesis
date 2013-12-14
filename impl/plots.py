@@ -29,3 +29,20 @@ def barplot(bardata, errors=None, xlabels=None, colors=('#000099', '#009900'), e
     ax.legend(map(lambda rects: rects[0], series), ('Twitter', 'Netflix'))
     
     return plt
+
+def lineplot(predictions, ratings, titles):
+    import numpy as np
+    
+    xs = range(1, len(titles) + 1)
+    
+    fig, ax = plt.subplots()
+    
+    ax.set_ylim((1, 5.5))
+    
+    ax.plot(xs, predictions, 'g', label=u"Predictions")
+    ax.plot(xs, ratings, 'b--', label=u"Benchmark")
+    
+    ax.set_xticklabels(titles)
+    ax.legend()
+    
+    return plt

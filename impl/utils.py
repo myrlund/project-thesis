@@ -82,3 +82,9 @@ def mean_square_error(predictions, ratings):
         errors.append((ratings[i] - predictions[i])**2)
     return sum(errors) / len(predictions)
 
+def mean_average_error(predictions, ratings):
+    errors = []
+    for i in xrange(len(predictions)):
+        errors.append(abs(ratings[i] - predictions[i]))
+    return sum(errors) / len(errors)
+

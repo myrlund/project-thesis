@@ -162,11 +162,13 @@ if __name__ == '__main__':
                                                                    max_tweets=args.max_tweets)
         
         ratings = map(netflix_average_rating, titles)
+        print "Ratings:\n%s" % "\n".join(map(lambda r: "%.2f" % r, ratings))
         
-        mse_predictions = mean_square_error(predictions, ratings)
+        mae_predictions = mean_average_error(predictions, ratings)
         
-        print "Mean Square Error: %.2f" % mse_predictions
-        print "Average of actual ratings (baseline): %.2f" % mean_square_error([average(ratings)] * N, ratings)
+        print "Correlation: %.2f" % correlation(predictions, ratings)
+        print "Mean Average Error: %.2f" % mae_predictions
+        print "Average of actual ratings (baseline): %.2f" % mean_average_error([average(ratings)] * N, ratings)
         
     
     if args.routine == "compare":
