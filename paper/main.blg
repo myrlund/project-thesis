@@ -7,45 +7,45 @@ Warning--entry type for "DatumBoxTwitterSentiment" isn't style-file defined
 --line 77 of file Bibliography.bib
 Warning--entry type for "UsingTwitterSearchAPI" isn't style-file defined
 --line 85 of file Bibliography.bib
-You've used 18 entries,
+You've used 16 entries,
             2481 wiz_defined-function locations,
-            696 strings with 9265 characters,
-and the built_in function-call counts, 8428 in all, are:
-= -- 809
-> -- 336
-< -- 20
-+ -- 133
-- -- 96
-* -- 593
-:= -- 1244
-add.period$ -- 82
-call.type$ -- 18
-change.case$ -- 36
-chr.to.int$ -- 17
-cite$ -- 18
-duplicate$ -- 460
-empty$ -- 774
-format.name$ -- 122
-if$ -- 1917
+            676 strings with 8461 characters,
+and the built_in function-call counts, 7320 in all, are:
+= -- 690
+> -- 302
+< -- 17
++ -- 119
+- -- 86
+* -- 517
+:= -- 1087
+add.period$ -- 70
+call.type$ -- 16
+change.case$ -- 32
+chr.to.int$ -- 15
+cite$ -- 16
+duplicate$ -- 398
+empty$ -- 676
+format.name$ -- 110
+if$ -- 1657
 int.to.chr$ -- 2
-int.to.str$ -- 19
-missing$ -- 16
-newline$ -- 117
-num.names$ -- 56
-pop$ -- 164
+int.to.str$ -- 17
+missing$ -- 14
+newline$ -- 103
+num.names$ -- 50
+pop$ -- 148
 preamble$ -- 1
-purify$ -- 18
+purify$ -- 16
 quote$ -- 0
-skip$ -- 307
+skip$ -- 264
 stack$ -- 0
-substring$ -- 407
-swap$ -- 140
-text.length$ -- 12
+substring$ -- 339
+swap$ -- 117
+text.length$ -- 10
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 126
+type$ -- 112
 warning$ -- 0
-while$ -- 72
+while$ -- 62
 width$ -- 0
-write$ -- 296
+write$ -- 257
 (There were 2 warnings)

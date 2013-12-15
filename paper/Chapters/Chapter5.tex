@@ -10,16 +10,20 @@
 
 % \emph{Beskriv hvordan du vurderer arbeidet ditt. Oppsummer evalueringsresultatene, og bruk dem til å vurdere ditt eget arbeid kritisk. Vær ærlig om eventuelle mangler. Hva betyr resultatene?}
 
-\begin{itemize}
-  \item When rating popular and well-known movies\footnote{The sample in question consisted of ``Pulp Fiction'', ``The Shining'', ``Mission: Impossible'', ``The Matrix'', ``The Godfather'', ``Forrest Gump'', and ``A Clockwork Orange''.} the predicted ratings achieve a correlational coefficient of 0.75 with regard to average Netflix ratings for the same movie.
-  \item B-movies or older less-known movies rarely collect enough Twitter search results to warrant any further analysis.
-  \item Movies with titles that are fairly common words or expressions in their own right achieve very low precision, and often return only noise. This is hard to detect without manual interference. Need to perform some sort of Named Entity Disambiguation, maybe something like the techniques outlined in Cucerzan~\cite{NamedEntityDisambiguationWiki} or Sarmento~\cite{NamedEntityDisambiguationWS} (is elaboration needed?).
-\end{itemize}
+% \begin{itemize}
+%   \item When rating popular and well-known movies\footnote{The sample in question consisted of ``Pulp Fiction'', ``The Shining'', ``Mission: Impossible'', ``The Matrix'', ``The Godfather'', ``Forrest Gump'', and ``A Clockwork Orange''.} the predicted ratings achieve a correlational coefficient of 0.75 with regard to average Netflix ratings for the same movie.
+%   \item B-movies or older less-known movies rarely collect enough Twitter search results to warrant any further analysis.
+%   \item Movies with titles that are fairly common words or expressions in their own right achieve very low precision, and often return only noise. This is hard to detect without manual interference. Need to perform some sort of Named Entity Disambiguation, maybe something like the techniques outlined in Cucerzan~\cite{NamedEntityDisambiguationWiki} or Sarmento~\cite{NamedEntityDisambiguationWS} (is elaboration needed?).
+% \end{itemize}
 
 \section{Evaluation metrics} % (fold)
 \label{sec:evaluation_metrics}
 
-To find out how the Twitter-based predictions fare, we will simply use the average of the available Netflix ratings of the same titles as benchmark ratings.
+To find out how the Twitter-based predictions fare, we will compare them to the average of the available Netflix ratings for the same title. That is, given the complete set of ratings $R$ of a movie, of size $m$, we define the benchmark rating $r$ as the average:
+
+\begin{equation}
+  r = \frac{1}{m} \sum_{i=1}^m R_i
+\end{equation}
 
 To compute error, the MAE (Mean Average Error) metric will be used. With predictions $p$ and benchmark ratings $r$, we will compute the MAE of $N$ sample movies in the following way:
 
@@ -28,24 +32,24 @@ To compute error, the MAE (Mean Average Error) metric will be used. With predict
   \label{eq:mae}
 \end{equation}
 
-As a baseline metric, the MAE of the average of all the benchmark ratings is used:
+% As a baseline metric, the MAE of the average of all the benchmark ratings is used:
+% 
+% \begin{align}
+%   \text{MAE}_\text{baseline} = \frac{1}{N} \sum_{i=1}^N | \bar{r} - r_i |
+% \end{align}
 
-\begin{align}
-  \text{MAE}_\text{baseline} = \sqrt{ \frac{1}{N} \sum_{i=1}^N (\bar{r} - r_i)^2 }
-\end{align}
-
-To measure the correlation between predictions and ratings, Pearson's $r$ is used. It is calculated in the following way:
+To measure the correlation between predictions and ratings, Pearson's correlation coefficient is used. It is calculated in the following way:
 
 \begin{equation}
   \rho_{X,Y} = \frac{\cov(X, Y)}{\sigma_X \sigma_Y}
 \end{equation}
 
-Pearson's $r$ describes the linear correlation between two variables. It takes on values between -1 and 1, where a value of 1 is total positive correlation, 0 is no linear correlation, and -1 is a total negative correlation.
+Pearson's correlation coefficient describes the linear correlation between two variables. It takes on values between -1 and 1, where a value of 1 is total positive correlation, 0 is no linear correlation, and -1 is a total negative correlation.
 
 \subsection{Why MAE?} % (fold)
 \label{sub:why_mae}
 
-Two error metrics were considered for evaluating the system: MAE and RMSE. We specifically consider MAE because of its simplicity, and RMSE because of its widespread use in the domain of evaluating movie recommendation algorithms\footnote{It was the only error metric targeted by the Netflix Prize, whence the Netflix training data originate.}.
+Two error metrics were considered for evaluating the system: Mean Average Error (MAE) and Root Mean Square Error (RMSE). We specifically consider MAE because of its simplicity, and RMSE because of its widespread use in the domain of evaluating movie recommendation algorithms\footnote{It was the only error metric recognized by the Netflix Prize competition, whence the Netflix training data originate.}.
 
 First, let's have a look at RMSE. It is calculated in the following manner for $N$ predictions $p$ and benchmark ratings $r$:
 
@@ -68,13 +72,13 @@ The goal for the evaluation of this application is to enable us to reason over t
 \section{Evaluations of samples} % (fold)
 \label{sec:eval_of_samples}
 
-Predictions were evaluated over two runs, run A and run B: the first with movie titles sampled from the entire Netflix catalog, and the second with movie titles sampled from IMDB's top 250 list. The samples were evaluated in 4 batches of 10 movie titles each.
+Predictions were evaluated over two runs, run A and run B: the first with movie titles sampled from the entire Netflix catalog, and the second with movie titles sampled from IMDB's top 250 list\footnote{\url{http://www.imdb.com/chart/top}}. The samples were evaluated in 4 batches of 10 movie titles each.
 
-Single batches of 10 are detailed for illustrative purposes. Their results are consistent with the magnitude of those gathered from evaluating other corresponding samples. These runs, however, we only characterize by their MAE and correlational coefficients here.
+For each run, single batches of 10 are detailed for illustrative purposes. Their individual results are available in appendix~\ref{AppendixA}. The other runs, however, we only characterize by their MAE and correlational coefficients.
 
-Both runs were performed with the same system parameters, apart from the top movie constraint in the second run, the most important ones listed in table~\ref{tab:run_parameters}.
+Both runs were performed with the same system parameters, apart from the top movie constraint in the second run. The most important parameters are:
 
-\begin{table}[h]
+\begin{table}[h!]
   \begin{center}
     \begin{tabular}{ll}
       \textbf{Max. document count} & At most 25 Twitter documents were analyzed per title. \\
@@ -111,7 +115,7 @@ For run A, it is worth pointing out that 7 movie titles were discarded for not m
 
 \subsubsection{Noisy Twitter search results}
 
-Most of the Twitter results listed in table~\ref{tab:test_run_all} were in fact not about the movie in question. In fact, \emph{all} the search results that were evaluated on behalf of the first movie, ``Chill Out'', were about watching other movies, only mentioning ``chill out'' in the same message more or less at random.
+Most of the Twitter results listed in table~\ref{tab:test_run_all} were in fact not about the movie in question. In fact, \emph{all} the search results that were evaluated on behalf of the first movie, ``Chill Out'', were about watching other movies, and only mention ``chill out'' in the same message more or less at random.
 
 The same is the case for several other movies in the listed sample run.
 
@@ -139,22 +143,22 @@ The comparative plot in figure~\ref{fig:predictions_benchmark_pop} is better adj
 \subsection{Evaluation result comparison} % (fold)
 \label{sub:evaluation_result_comparison}
 
-Up to this point, the predictions have only been compared with the benchmarks. Here, they will be compared to each other.
+Up to this point, the predictions have only been compared with the benchmarks. Here, they will be compared among themselves.
 
-First, the benchmarks. Let the set of benchmark ratings for run 1 be denoted $R_1$, and similarly the benchmark ratings from run 2 $R_2$. As expected, the average benchmark ratings from run 2 -- the top movies -- are clearly above the ones from run 1.
+First, the benchmarks. Let the set of benchmark ratings for run A be denoted $R_A$, and similarly the benchmark ratings from run B $R_B$. As expected, the average benchmark ratings from run B -- the top movies -- are clearly above the ones from run A.
 
 \begin{align}
-  \bar{R}_1 = 2.882 \\
-  \bar{R}_2 = 3.919
+  \bar{R}_A = 2.882 \\
+  \bar{R}_B = 3.919
 \end{align}
 
 A difference of more than $1.0$. A number along these lines is what we want to see as the difference between the average predictions from the two runs.
 
-However, when we perform the same mean value comparison for the \emph{predictions} from the two runs, denoted $P_1$ and $P_2$, we see a different pattern:
+However, when we perform the same mean value comparison for the \emph{predictions} from the two runs, denoted $P_A$ and $P_B$, we see a different pattern:
 
 \begin{align}
-  \bar{P}_1 = 3.966 \\
-  \bar{P}_2 = 3.968
+  \bar{P}_A = 3.966 \\
+  \bar{P}_B = 3.968
 \end{align}
 
 A difference of only 0.002 -- a mere nothing.

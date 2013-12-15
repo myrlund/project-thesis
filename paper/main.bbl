@@ -1,4 +1,4 @@
-\begin{thebibliography}{18}
+\begin{thebibliography}{16}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -99,26 +99,6 @@ H.~Peng, Fulmi Long, and C.~Ding.
   on}, 27\penalty0 (8):\penalty0 1226--1238, 2005.
 \newblock ISSN 0162-8828.
 \newblock \doi{10.1109/TPAMI.2005.159}.
-
-\bibitem[Cucerzan(2007)]{NamedEntityDisambiguationWiki}
-Silviu Cucerzan.
-\newblock Large-scale named entity disambiguation based on {Wikipedia} data.
-\newblock In \emph{Proceedings of the 2007 Joint Conference on Empirical
-  Methods in Natural Language Processing and Computational Natural Language
-  Learning (EMNLP-CoNLL)}, pages 708--716, Prague, Czech Republic, June 2007.
-  Association for Computational Linguistics.
-\newblock URL \url{http://www.aclweb.org/anthology/D/D07/D07-1074}.
-
-\bibitem[Sarmento et~al.(2009)Sarmento, Kehlenbeck, Oliveira, and
-  Ungar]{NamedEntityDisambiguationWS}
-Lu\'{\i}s Sarmento, Alexander Kehlenbeck, Eug{\'e}nio Oliveira, and Lyle Ungar.
-\newblock An approach to web-scale named-entity disambiguation.
-\newblock In \emph{Proceedings of the 6th International Conference on Machine
-  Learning and Data Mining in Pattern Recognition}, MLDM '09, pages 689--703,
-  Berlin, Heidelberg, 2009. Springer-Verlag.
-\newblock ISBN 978-3-642-03069-7.
-\newblock \doi{10.1007/978-3-642-03070-3_52}.
-\newblock URL \url{http://dx.doi.org/10.1007/978-3-642-03070-3_52}.
 
 \bibitem[Choi et~al.(2005)Choi, Cardie, Riloff, and
   Patwardhan]{Choi:2005:ISO:1220575.1220620}
