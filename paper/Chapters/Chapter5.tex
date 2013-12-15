@@ -40,6 +40,8 @@ To measure the correlation between predictions and ratings, Pearson's $r$ is use
   \rho_{X,Y} = \frac{\cov(X, Y)}{\sigma_X \sigma_Y}
 \end{equation}
 
+Pearson's $r$ describes the linear correlation between two variables. It takes on values between -1 and 1, where a value of 1 is total positive correlation, 0 is no linear correlation, and -1 is a total negative correlation.
+
 \subsection{Why MAE?} % (fold)
 \label{sub:why_mae}
 
@@ -63,12 +65,12 @@ The MAE, on the other hand -- as defined in~\eqref{eq:mae} -- is a lot simpler.
 
 The goal for the evaluation of this application is to enable us to reason over the applicability of the general approach taken, not to objectively compare this specific application to other competing systems. For this, the simplicity and clarity of MAE is prioritized over RMSE's expressiveness, and will serve as the main error metric.
 
-\section{Comparison of results from different movie types} % (fold)
-\label{sec:comparison_of_results_from_different_movie_types}
+\section{Evaluations of samples} % (fold)
+\label{sec:eval_of_samples}
 
-Let us have a look at two sample runs. The first one selects a sample of 10 random movies from the entire set of movies in the test set, while the second run is restricted to movies present in IMDB's top 250 list (as described in section~\ref{sec:evaluation_impl}).
+Predictions were evaluated over two runs, run A and run B: the first with movie titles sampled from the entire Netflix catalog, and the second with movie titles sampled from IMDB's top 250 list. The samples were evaluated in 4 batches of 10 movie titles each.
 
-The results shown below are consistent with the magnitude of those gathered from evaluating other corresponding samples.
+Single batches of 10 are detailed for illustrative purposes. Their results are consistent with the magnitude of those gathered from evaluating other corresponding samples. These runs, however, we only characterize by their MAE and correlational coefficients here.
 
 Both runs were performed with the same system parameters, apart from the top movie constraint in the second run, the most important ones listed in table~\ref{tab:run_parameters}.
 
@@ -84,32 +86,11 @@ Both runs were performed with the same system parameters, apart from the top mov
   \label{tab:run_parameters}
 \end{table}
 
-\subsection{Run 1: Sample drawn from entire test set}
+\subsection{Run A: Sample drawn from entire test set}
 
-\begin{table}[h]
-  \begin{center}
-    \begin{tabular}{|l|rr|r|}
-      \hline
-      \textbf{Title} & \textbf{Prediction} & \textbf{Variance} & \textbf{Benchmark} \\
-      \hline
-      Chill Out          & 4.28 & 1.37 & 2.49 \\
-      First Kid          & 4.48 & 1.21 & 3.59 \\
-      Paparazzi          & 3.75 & 1.39 & 3.39 \\
-      That Thing You Do! & 4.80 & 0.60 & 3.53 \\
-      Undercover Brother & 4.05 & 1.59 & 3.10 \\
-      The Backyard       & 4.47 & 1.36 & 2.36 \\
-      Black Cat          & 3.80 & 1.70 & 2.30 \\
-      Dangerous Game     & 3.83 & 1.52 & 2.54 \\
-      So Little Time     & 3.60 & 1.80 & 3.10 \\
-      Play for Me        & 2.60 & 1.96 & 2.42 \\
-      \hline
-    \end{tabular}
-  \end{center}
-  \caption{Test run for a sample of movies randomly selected from the entire test set.}
-  \label{tab:test_run_all}
-\end{table}
+This run gives a MAE of 1.08, and a correlational coefficient of 0.39. Details of individual item ratings and predictions are available in table~\ref{tab:test_run_all}.
 
-This run gives a MAE of 1.08, and a correlational coefficient of 0.39. However, these numbers vary greatly between each run. Subsequent runs with other randomly sampled movies yield the following:
+These numbers, however, vary greatly between each run. Subsequent runs with other randomly sampled movies yield the following:
 
 \begin{enumerate}
   \item MAE: 1.16, correlational coefficient: 0.16
@@ -119,12 +100,12 @@ This run gives a MAE of 1.08, and a correlational coefficient of 0.39. However, 
 
 Specifically, it is worth noting that the predictions in general grossly overshoot the benchmarks, which becomes especially clear in the comparative line plot in figure~\ref{fig:predictions_benchmark_rand}.
 
-For the first run, it is worth pointing out that 7 movie titles were discarded for not meeting the required threshold of 5 Twitter search results. On average, approximately 50\% of the titles are discarded on this criteria.
+For run A, it is worth pointing out that 7 movie titles were discarded for not meeting the required threshold of 5 Twitter search results. On average, approximately 50\% of the titles are discarded on this criteria.
 
 \begin{figure}[h]
   \centering
     \includegraphics[width=.8\textwidth]{Figures/plots/predictions_benchmark_rand}
-  \caption{Run 1: Line plot of predictions vs. benchmark value.}
+  \caption{Run A: Line plot of predictions vs. benchmark value.}
   \label{fig:predictions_benchmark_rand}
 \end{figure}
 
@@ -134,32 +115,9 @@ Most of the Twitter results listed in table~\ref{tab:test_run_all} were in fact 
 
 The same is the case for several other movies in the listed sample run.
 
-\subsection{Run 2: Sample drawn from IMDB's top 250 list}
+\subsection{Run B: Sample drawn from IMDB's top 250 list}
 
-\begin{table}[h]
-  \begin{center}
-    \begin{tabular}{|l|rr|r|}
-      \hline
-      \textbf{Title} & \textbf{Prediction} & \textbf{Variance} & \textbf{Benchmark} \\
-      \hline
-      The Kid             & 3.96 & 1.57 & 3.32 \\
-      Metropolis          & 3.48 & 1.17 & 3.40 \\
-      Reservoir Dogs      & 4.28 & 1.11 & 4.00 \\
-      The Usual Suspects  & 4.04 & 1.51 & 4.37 \\
-      Monsters, Inc.      & 3.64 & 1.76 & 4.28 \\
-      A Beautiful Mind    & 4.44 & 1.33 & 3.97 \\
-      Requiem for a Dream & 3.08 & 2.00 & 3.79 \\
-      Million Dollar Baby & 4.20 & 1.60 & 4.16 \\
-      City of God         & 4.76 & 0.11 & 4.10 \\
-      Jurassic Park       & 3.80 & 1.60 & 3.80 \\
-      \hline
-    \end{tabular}
-  \end{center}
-  \caption{Test run for a sample of movies randomly selected from IMDB's top 250 list.}
-  \label{tab:test_run_popular}
-\end{table}
-
-This run gives a MAE of 0.38, and a correlational coefficient of 0.40.
+This run gives a MAE of 0.38, and a correlational coefficient of 0.40. Again, details are available, in table~\ref{tab:test_run_popular}.
 
 Subsequent runs with the same parameters yield the following:
 
@@ -174,7 +132,7 @@ The comparative plot in figure~\ref{fig:predictions_benchmark_pop} is better adj
 \begin{figure}[h]
   \centering
     \includegraphics[width=.8\textwidth]{Figures/plots/predictions_benchmark_pop}
-  \caption{Run 2: Line plot of predictions vs. benchmark value.}
+  \caption{Run B: Line plot of predictions vs. benchmark value.}
   \label{fig:predictions_benchmark_pop}
 \end{figure}
 
@@ -201,6 +159,15 @@ However, when we perform the same mean value comparison for the \emph{prediction
 
 A difference of only 0.002 -- a mere nothing.
 
+The difference becomes especially revealing when compared visually, as in figure~\ref{fig:pr_run_comparison}.
+
 This result repeats in approximately the same way for every run: the average rating predictions seem to be completely disassociated with the benchmark ratings of the test set.
+
+\begin{figure}[h]
+  \centering
+    \includegraphics[width=.8\textwidth]{Figures/plots/pr_run_comparison}
+  \caption{Comparison of ratings and predictions, per run. Left: ratings, right: predictions.}
+  \label{fig:pr_run_comparison}
+\end{figure}
 
 % subsection evaluation_run_summary (end)

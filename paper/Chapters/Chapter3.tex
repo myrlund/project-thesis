@@ -69,7 +69,9 @@ As we shall see in later chapters, actually retrieving relevant content from Twi
 \section{Sentiment analysis} % (fold)
 \label{sec:sentiment_analysis_step}
 
-The sentiment analysis step assigns a sentiment class to each associated Twitter message from the previous step. The sentiments are either ``positive'', ``neutral'', or ``negative''.
+The sentiment analysis step assigns a sentiment class to each associated Twitter message from the previous step. The messages are labeled as either ``positive'', ``neutral'', or ``negative''.
+
+Other work~\cite{agarwal2011sentiment} has included a separate label for messages that were unreadable by the human annotator, but seeing as we're using a third-party sentiment classifier we are unable to experiment with this distinction.
 
 % section sentiment_analysis (end)
 
@@ -82,7 +84,7 @@ To turn the sentiment classes into a single rational number, two steps are taken
 
 \begin{enumerate}
   \item Each sentiment class is mapped to a real number value.
-  \item The real values are averaged or in other ways reduced into one.
+  \item The real values are reduced into a single prediction by averaging them.
 \end{enumerate}
 
 % section rating_prediction (end)

@@ -1,4 +1,4 @@
-\begin{thebibliography}{16}
+\begin{thebibliography}{18}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -12,16 +12,6 @@ Xiaoyuan Su and Taghi~M. Khoshgoftaar.
 \newblock ISSN 1687-7470.
 \newblock \doi{10.1155/2009/421425}.
 \newblock URL \url{http://dx.doi.org/10.1155/2009/421425}.
-
-\bibitem[Herlocker et~al.(2000)Herlocker, Konstan, and
-  Riedl]{Herlocker:2000:ECF:358916.358995}
-Jonathan~L. Herlocker, Joseph~A. Konstan, and John Riedl.
-\newblock Explaining collaborative filtering recommendations.
-\newblock In \emph{Proceedings of the 2000 ACM Conference on Computer Supported
-  Cooperative Work}, CSCW '00, pages 241--250, New York, NY, USA, 2000. ACM.
-\newblock ISBN 1-58113-222-0.
-\newblock \doi{10.1145/358916.358995}.
-\newblock URL \url{http://doi.acm.org/10.1145/358916.358995}.
 
 \bibitem[Java et~al.(2007)Java, Song, Finin, and
   Tseng]{Java:2007:WWT:1348549.1348556}
@@ -80,6 +70,20 @@ Efthymios Kouloumpis, Theresa Wilson, and Johanna Moore.
 \newblock Twitter sentiment analysis: The good the bad and the omg!
 \newblock In \emph{ICWSM}, 2011.
 
+\bibitem[Pang et~al.(2002)Pang, Lee, and Vaithyanathan]{pang2002thumbs}
+Bo~Pang, Lillian Lee, and Shivakumar Vaithyanathan.
+\newblock Thumbs up?: sentiment classification using machine learning
+  techniques.
+\newblock In \emph{Proceedings of the ACL-02 conference on Empirical methods in
+  natural language processing-Volume 10}, pages 79--86. Association for
+  Computational Linguistics, 2002.
+
+\bibitem[Nigam(1999)]{Nigam99usingmaximum}
+Kamal Nigam.
+\newblock Using maximum entropy for text classification.
+\newblock In \emph{In IJCAI-99 Workshop on Machine Learning for Information
+  Filtering}, pages 61--67, 1999.
+
 \bibitem[Vryniotis(2013)]{DatumBoxTwitterSentiment}
 Vasilis Vryniotis.
 \newblock How to build your own twitter sentiment analysis tool, September
@@ -95,20 +99,6 @@ H.~Peng, Fulmi Long, and C.~Ding.
   on}, 27\penalty0 (8):\penalty0 1226--1238, 2005.
 \newblock ISSN 0162-8828.
 \newblock \doi{10.1109/TPAMI.2005.159}.
-
-\bibitem[Pang et~al.(2002)Pang, Lee, and Vaithyanathan]{pang2002thumbs}
-Bo~Pang, Lillian Lee, and Shivakumar Vaithyanathan.
-\newblock Thumbs up?: sentiment classification using machine learning
-  techniques.
-\newblock In \emph{Proceedings of the ACL-02 conference on Empirical methods in
-  natural language processing-Volume 10}, pages 79--86. Association for
-  Computational Linguistics, 2002.
-
-\bibitem[Nigam(1999)]{Nigam99usingmaximum}
-Kamal Nigam.
-\newblock Using maximum entropy for text classification.
-\newblock In \emph{In IJCAI-99 Workshop on Machine Learning for Information
-  Filtering}, pages 61--67, 1999.
 
 \bibitem[Cucerzan(2007)]{NamedEntityDisambiguationWiki}
 Silviu Cucerzan.
@@ -129,5 +119,36 @@ Lu\'{\i}s Sarmento, Alexander Kehlenbeck, Eug{\'e}nio Oliveira, and Lyle Ungar.
 \newblock ISBN 978-3-642-03069-7.
 \newblock \doi{10.1007/978-3-642-03070-3_52}.
 \newblock URL \url{http://dx.doi.org/10.1007/978-3-642-03070-3_52}.
+
+\bibitem[Choi et~al.(2005)Choi, Cardie, Riloff, and
+  Patwardhan]{Choi:2005:ISO:1220575.1220620}
+Yejin Choi, Claire Cardie, Ellen Riloff, and Siddharth Patwardhan.
+\newblock Identifying sources of opinions with conditional random fields and
+  extraction patterns.
+\newblock In \emph{Proceedings of the Conference on Human Language Technology
+  and Empirical Methods in Natural Language Processing}, HLT '05, pages
+  355--362, Stroudsburg, PA, USA, 2005. Association for Computational
+  Linguistics.
+\newblock \doi{10.3115/1220575.1220620}.
+\newblock URL \url{http://dx.doi.org/10.3115/1220575.1220620}.
+
+\bibitem[Jakob and Gurevych(2010)]{Jakob:2010:EOT:1870658.1870759}
+Niklas Jakob and Iryna Gurevych.
+\newblock Extracting opinion targets in a single- and cross-domain setting with
+  conditional random fields.
+\newblock In \emph{Proceedings of the 2010 Conference on Empirical Methods in
+  Natural Language Processing}, EMNLP '10, pages 1035--1045, Stroudsburg, PA,
+  USA, 2010. Association for Computational Linguistics.
+\newblock URL \url{http://dl.acm.org/citation.cfm?id=1870658.1870759}.
+
+\bibitem[Yang and Cardie(2012)]{Yang:2012:EOE:2390948.2391100}
+Bishan Yang and Claire Cardie.
+\newblock Extracting opinion expressions with semi-markov conditional random
+  fields.
+\newblock In \emph{Proceedings of the 2012 Joint Conference on Empirical
+  Methods in Natural Language Processing and Computational Natural Language
+  Learning}, EMNLP-CoNLL '12, pages 1335--1345, Stroudsburg, PA, USA, 2012.
+  Association for Computational Linguistics.
+\newblock URL \url{http://dl.acm.org/citation.cfm?id=2390948.2391100}.
 
 \end{thebibliography}

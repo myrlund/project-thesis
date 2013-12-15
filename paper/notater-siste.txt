@@ -1,8 +1,3 @@
-Twitter kun som forsterkende faktor
-Gi kontekst til Netflix-ratings:
-  - legge til adjektiver?
-  - kontrastifisere positive/negative adjektiver. ordsky?
-
 _Hvor ligger nytteverdien?_
   - lettere å bryte ned problemstillingen
 
@@ -13,5 +8,9 @@ Future work er viktig!
     klassifisere bort tekster? filtrere i et første steg.
   Hva vil jeg jobbe med til våren?
   Nyere filmer -- tråle IMDB for nye filmer.
+  Twitter kun som forsterkende faktor
+  Gi kontekst til Netflix-ratings:
+    - legge til adjektiver?
+    - kontrastifisere positive/negative adjektiver. ordsky?
 
 1 underkapittel -> 0 underkapitler

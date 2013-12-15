@@ -11,20 +11,23 @@
 % \emph{Context; motivation for the project; problem statement; outline of dissertation.}
 
 \section{Motivation}
+\label{sec:motivation}
 
-Many movie recommendation systems today use collaborative filtering techniques at their core. Although collaborative filtering has many advantages that have let it attain its position as one of the dominant algorithms in the field, there are still quite a few weaknesses left to remedy. Among others, two important challenges for collaborative filtering techniques left today are 1) their ability to handle data sparsity~\cite{Su:2009:SCF:1592474.1722966}, and 2) their ability to explain predictions~\cite{Herlocker:2000:ECF:358916.358995}.
+Many movie recommendation systems today use collaborative filtering techniques at their core. Although collaborative filtering has many advantages that have let it attain its position as one of the dominant algorithms in the field, there are still quite a few weaknesses left to remedy. Among others, an important challenge for collaborative filtering techniques left today is their ability to handle data sparsity~\cite{Su:2009:SCF:1592474.1722966}.
 
-I will take a somewhat untraditional approach in an attempt to mitigate these issues: can data mined from one of today's largest sources of user-generated content, Twitter, contribute enough relevant information to solve both the problem of data sparsity and result explanation?
+I will take a somewhat untraditional approach in an attempt to mitigate this issue: can data mined from one of today's largest sources of user-generated content, Twitter, contribute enough relevant information to help in solving the problem of data sparsity?
 
-In this project I will attempt to predict movie recommendations based on the perceived sentiment in Twitter search results.
+In this project I will attempt to predict movie ratings based on the perceived sentiment in Twitter search results.
 
 \subsection{Problems in collaborative filtering}
 
 The data sparsity problem has several sides to it~\cite{Su:2009:SCF:1592474.1722966}.
 
-Here, we will take a closer look at the \emph{cold start} problem -- or more specifically: the \emph{new item problem}. It occurs when a new item enters the system and there is no rating history to base similarity measures on, leaving a barebones collaborative filtering algorithm without anything to base predictions on -- until, of course, some users rate it. If this is the case for a large number of items, we say that we have poor \emph{coverage}.
+Here, we will take a closer look at the \emph{cold start} problem -- or more specifically: the \emph{new item problem}. It occurs when a new item enters the system and there is no rating history to base similarity measures on, leaving a barebones collaborative filtering algorithm without anything to base predictions on -- until, of course, some users rate it.
 
-Furthermore, many collaborative filtering algorithms have a problem explaining why they come up with their predictions. If we're able to reliably find Twitter content to back our collaborative filtering predictions, we can use them as a way of providing a context to our recommendations.
+Our evaluation data set does not have movies released more recently than 2005, but as the new item problem applies to the addition of new items into a system, not the novelty of an item itself, this shouldn't constitute a barrier.
+
+Furthermore, many collaborative filtering algorithms have a problem explaining why they come up with their predictions. If we're able to reliably map Twitter content back to our collaborative filtering predictions, we could look into using it as a way of providing context to our recommendations.
 
 \subsection{Twitter}
 

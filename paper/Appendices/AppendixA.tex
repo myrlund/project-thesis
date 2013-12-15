@@ -6,3 +6,54 @@
 
 \lhead{Appendix A. \emph{Evaluation Results}} % This is for the header on each page - perhaps a shortened title
 
+
+\subsection{Run A: Sample drawn from entire test set}
+
+\begin{table}[h]
+  \begin{center}
+    \begin{tabular}{|l|rr|r|}
+      \hline
+      \textbf{Title} & \textbf{Prediction} & \textbf{Variance} & \textbf{Benchmark rating} \\
+      \hline
+      Chill Out          & 4.28 & 1.37 & 2.49 \\
+      First Kid          & 4.48 & 1.21 & 3.59 \\
+      Paparazzi          & 3.75 & 1.39 & 3.39 \\
+      That Thing You Do! & 4.80 & 0.60 & 3.53 \\
+      Undercover Brother & 4.05 & 1.59 & 3.10 \\
+      The Backyard       & 4.47 & 1.36 & 2.36 \\
+      Black Cat          & 3.80 & 1.70 & 2.30 \\
+      Dangerous Game     & 3.83 & 1.52 & 2.54 \\
+      So Little Time     & 3.60 & 1.80 & 3.10 \\
+      Play for Me        & 2.60 & 1.96 & 2.42 \\
+      \hline
+    \end{tabular}
+  \end{center}
+  \caption{Test run for a sample of movies randomly selected from the entire test set.}
+  \label{tab:test_run_all}
+\end{table}
+
+
+\subsection{Run B: Sample drawn from IMDB's top 250 list}
+
+\begin{table}[h]
+  \begin{center}
+    \begin{tabular}{|l|rr|r|}
+      \hline
+      \textbf{Title} & \textbf{Prediction} & \textbf{Variance} & \textbf{Benchmark rating} \\
+      \hline
+      The Kid             & 3.96 & 1.57 & 3.32 \\
+      Metropolis          & 3.48 & 1.17 & 3.40 \\
+      Reservoir Dogs      & 4.28 & 1.11 & 4.00 \\
+      The Usual Suspects  & 4.04 & 1.51 & 4.37 \\
+      Monsters, Inc.      & 3.64 & 1.76 & 4.28 \\
+      A Beautiful Mind    & 4.44 & 1.33 & 3.97 \\
+      Requiem for a Dream & 3.08 & 2.00 & 3.79 \\
+      Million Dollar Baby & 4.20 & 1.60 & 4.16 \\
+      City of God         & 4.76 & 0.11 & 4.10 \\
+      Jurassic Park       & 3.80 & 1.60 & 3.80 \\
+      \hline
+    \end{tabular}
+  \end{center}
+  \caption{Test run for a sample of movies randomly selected from IMDB's top 250 list.}
+  \label{tab:test_run_popular}
+\end{table}

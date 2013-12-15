@@ -74,9 +74,7 @@ After much trial and failure, the following settings seem to yield good results 
   \label{fig:search_filtered}
 \end{figure}
 
-Then remained the choice between the three modes of search: ``popular'', ``recent'', or ``mixed''.
-
-@TODO Explain choice of mixed.
+For the choice among the three modes of search -- ``popular'', ``recent'', or ``mixed'' -- as much diversity as possible was desired. Although popular Tweets were initially preferred, there were simply not enough of them to warrant this choice (more often than not, zero or one). Therefore, to enable a fair comparison between popular and not-so-popular movie titles, the result type of choice became ``mixed''.
 
 % section data_retrieval (end)
 
@@ -122,7 +120,7 @@ Thus, to extract the $m$ most relevant features with regard to class $c$, we sim
 
 To describe the Naive Bayes classifier we will use the bag-of-features framework~\cite{pang2002thumbs}.
 
-Let ${f_1, f_2, ..., f_m}$ be a set of $m$ features, and let $n_i(d)$ be the number of times $f_i$ occurs in document $d$. We can then represent each document $d$ as a vector $\vec{d} = (n_1(d), n_2(d), ..., n_m(d))$. The training data being ``evenly distributed across the 3 categories''~\cite{DatumBoxTwitterSentiment}, the probability distribution $P(C)$ over the possible categories, $C$, is constant. We can therefore use the Maximum Likelihood approach to build our hypothesis, and simplify our calculations.
+Let ${f_1, f_2, \dotsc, f_m}$ be a set of $m$ features, and let $n_i(d)$ be the number of times $f_i$ occurs in document $d$. We can then represent each document $d$ as a vector $\vec{d} = (n_1(d), n_2(d), \dotsc, n_m(d))$. The training data being ``evenly distributed across the 3 categories''~\cite{DatumBoxTwitterSentiment}, the probability distribution $P(C)$ over the possible categories, $C$, is constant. We can therefore use the Maximum Likelihood approach to build our hypothesis, and simplify our calculations.
 
 First, Bayes' rule tells us that
 
@@ -143,14 +141,6 @@ By assuming that the features $f_i$ are conditionally independent given their cl
 When calling the DatumBox API, the best results were achieved when removing the movie title itself from the query. Quite a lot of titles have sentiment-carrying words in their titles\footnote{``Breaking Bad'' consequently scoring way below ``Cheers'' was a rather clear cut case.}, and this obviously confused the classifier quite a bit.
 
 % section sentiment_analysis (end)
-
-\subsection{Alternative approaches}
-
-Two of the most relevant alternatives to the Naive Bayes, SVM and Max Entropy, are also perfectly capable of performing sentiment classification. This section will describe them briefly, with emphasis on how they perform the sentiment classification task. This is well described in the literature~\cite{pang2002thumbs}, so this survey will not go into great detail.
-
-Max Entropy has been shown to perform several text classification tasks often better than the Naive Bayes, but it also sometimes performs worse~\cite{Nigam99usingmaximum}. The underlying principle of maximum entropy is that without further knowledge, uniform distributions should always be preferred. Training data lay constraints on the distribution, and let us know where the most uniform solutions are.
-
-SVM is a maximal @TODO
 
 
 \section{Rating prediction} % (fold)
