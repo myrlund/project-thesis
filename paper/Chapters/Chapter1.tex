@@ -23,19 +23,19 @@ In this project I will attempt to predict movie ratings based on the perceived s
 
 The data sparsity problem has several sides to it~\cite{Su:2009:SCF:1592474.1722966}.
 
-Here, we will take a closer look at the \emph{cold start} problem -- or more specifically: the \emph{new item problem}. It occurs when a new item enters the system and there is no rating history to base similarity measures on, leaving a barebones collaborative filtering algorithm without anything to base predictions on -- until, of course, some users rate it.
+Here, we will take a closer look at the \emph{cold start} problem -- or more specifically: the \emph{new item problem}. It occurs when a new item enters the system and there is no rating history to base similarity measures on, leaving the algorithm without anything to base predictions on -- until, of course, some users rate it.
 
-Our evaluation data set does not have movies released more recently than 2005, but as the new item problem applies to the addition of new items into a system, not the novelty of an item itself, this shouldn't constitute a barrier.
+Our evaluation data set does not contain movies released more recently than 2005, but as the new item problem applies to the addition of new items into a system, not the novelty of an item itself, this doesn't undermine the applicability of the data.
 
-Furthermore, many collaborative filtering algorithms have a problem explaining why they come up with their predictions. If we're able to reliably map Twitter content back to our collaborative filtering predictions, we could look into using it as a way of providing context to our recommendations.
+As an aside, many collaborative filtering algorithms have a problem explaining why they come up with their predictions. If we're able to reliably map Twitter content back to our collaborative filtering predictions, we could look into using it as a way of providing context to our recommendations.
 
 \subsection{Twitter}
 
-Twitter is one of the largest sources of user-generated content available today. It launched in 2006, was incorporated in 2007, and has seen active user growth ever since. At the time of writing, Twitter has more than 230 million registered users sending around 500 million Tweets per day.\footnote{Numbers from \url{https://about.twitter.com/company}.}
+Twitter is one of the largest sources of user-generated content available today. It launched in 2006, was incorporated in 2007, and has seen a massive user growth ever since. At the time of writing, Twitter has more than 230 million registered users sending around 500 million Tweets per day.\footnote{Numbers from \url{https://about.twitter.com/company}.}
 
-One of the most interesting things about Twitter is its simplicity. Each message is limited to 140 characters in length, for no other apparent reason than to force its author to formulate messages very concisely, as well as significantly lower the threshold for publishing content compared to traditional blogging services~\cite{Java:2007:WWT:1348549.1348556}.
+One of the most interesting things about Twitter is its simplicity. Each message is limited to 140 characters in length, for no other apparent reason than to force users into formulating concise messages, as well as significantly lowering the threshold for publishing content compared to traditional blogging services~\cite{Java:2007:WWT:1348549.1348556}.
 
-Furthermore, 76\% of Twitter's active users are on mobile -- enabling use of the service from anywhere. Combined with Twitter's well-established REST API, this provides us with a robust source of real-time data on almost any subject.
+Furthermore, 76\% of Twitter's active users are on mobile -- enabling their use of the service from anywhere. Combined with Twitter's well-established REST API, this provides us with a robust source of real-time data on almost any subject.
 
 I'll delve further into aspects of using Twitter as a data source in section~\ref{sec:twitter_data}.
 
@@ -47,7 +47,7 @@ The main hypothesis is that for each movie, there is a correlation between its u
 
 \begin{enumerate}
   \item Twitter users write positive things about movies they like, and negative things about movies they don't like.
-  \item Twitter users express this sentiment within the Twitter messages themselves, not just in linked content.
+  \item Twitter users express this sentiment within the Twitter messages themselves, not only in linked content.
   \item When a movie is referenced in a Twitter message the title will most likely be mentioned, and spelled correctly.
   \item It is viable to sentimentally classify texts shorter than 140 character, often written in informal language.
   \item It is viable to separate between referenced movies, and other entities or phrases with the same title.
@@ -62,9 +62,9 @@ As we shall see, many of these assumptions hold up poorly -- or hardly at all --
 This paper is organized as follows.
 
 Chapter~\ref{Chapter2} surveys relevant literature, similar applications, provides an in-depth analysis of Twitter data and the Twitter API, and reviews the sentiment classifier chosen for the implementation.
-Chapter~\ref{Chapter3} describes the system design, and reasoning behind central design choices.
+Chapter~\ref{Chapter3} describes the system design and the reasoning behind central design choices.
 Chapter~\ref{Chapter4} describes the implementation, specifically the way the APIs are called, as well as central algorithms and how they are employed.
 In chapter~\ref{Chapter5} we'll look at the execution results, and see how they evaluate.
-Chapter~\ref{Chapter6} summarizes the most important takeaways, and suggests some further work.
+Chapter~\ref{Chapter6} summarizes the most important takeaways, and suggests further work.
 
 %----------------------------------------------------------------------------------------

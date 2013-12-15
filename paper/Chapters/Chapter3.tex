@@ -13,7 +13,9 @@
 % \emph{Diskuter de viktigste funksjonene i ditt design og hvordan det har utviklet seg, fremhev noen nye/originale funksjoner.}
 
 
-This chapter will describe the system in a top-down manner. After explaining the initial design requirements, the system viewed as a whole will be described, then the large logical modules and their relationships, then their individual qualities.
+This chapter will describe the system in a top-down manner. After explaining the initial design requirements, the system viewed as a whole will be described, then the large logical modules and their relationships.
+
+Implementation specific details are deferred to chapter~\ref{Chapter4}.
 
 \section{Design choices} % (fold)
 \label{sec:design_choices}
@@ -27,9 +29,7 @@ Seen as a black box, the system consumes metadata and emits predictions.
   \label{fig:dataflow}
 \end{figure}
 
-The system is inherently data-driven. Every step consumes data, processes it, and emits data -- each conforming to simple interfaces in both ends.
-
-More specifically, the system consists of three logical steps:
+The system is inherently data-driven. Every step consumes data, processes it, and emits data. More specifically, the system consists of three logical steps:
 
 \begin{enumerate}
   \item Data gathering
@@ -37,7 +37,7 @@ More specifically, the system consists of three logical steps:
   \item Rating prediction
 \end{enumerate}
 
-The steps sequentially process data for the next one to use, as illustrated in figure~\ref{fig:dataflow_modular}, and invoke each other through simple interfaces. In the next sections, each step will be briefly described. Implementation details are deferred to chapter~\ref{Chapter4}.
+The steps sequentially process data for the next one to use, as illustrated in figure~\ref{fig:dataflow_modular}, and invoke each other through simple interfaces. In the next sections, each step will be briefly described.
 
 \begin{figure}[h]
   \centering
@@ -53,9 +53,7 @@ Although the steps below are designed to handle \emph{sets of movies} at a time,
 \section{Data gathering} % (fold)
 \label{sec:data_gathering_step}
 
-The data gathering step consumes movie metadata, and emits a list of Twitter messages.
-
-It performs the following two rough steps:
+The data gathering step consumes movie metadata, and emits a list of Twitter messages. It performs the following two rough steps:
 
 \begin{enumerate}
   \item Query Twitter for relevant content based on given metadata.

@@ -13,12 +13,14 @@
 \section{Similar applications} % (fold)
 \label{sec:similar_applications}
 
-Some people have attempted the same task as in this thesis, though with another type of social data. Singh et al. \cite{Singh2011} investigated a ``formulation, where [they] combined the content-based approach with a sentiment analysis task to improve the recommendation results.'' Their approach is very similar to our approach, but differs in two important ways:
+Others have attempted the same task as in this thesis, though with a slightly different approach. Singh et al.~\cite{Singh2011} investigated a ``formulation, where [they] combined the content-based approach with a sentiment analysis task to improve the recommendation results.'' Their approach looks very much like the one taken in this project, but differs in two central ways:
 
 \begin{enumerate}
-  \item It uses user reviews from IMDB as content source\footnote{IMDB does not provide open API access at the time of writing.}, and not a more general source of sentiment-carrying content -- as in our case, with Twitter.
-  \item It is generates recommendations based on genre input.
+  \item It uses user reviews from IMDB as content source\footnote{IMDB does not provide open API access at the time of writing.}, and not a more general data source -- as in our case, with Twitter.
+  \item It generates recommendations based on genre input.
 \end{enumerate}
+
+More generally, much work has been done on sentiment classifying Twitter data. This is elaborated on in section~\ref{sec:the_sentiment_classifier}.
 
 % section similar_applications (end)
 
@@ -35,18 +37,16 @@ Micro-blogging services such as Twitter have enormous amounts of data on almost 
   \item[Concise] Due to limitations on content length, users must express themselves concisely.
 \end{description}
 
-Now, for a look at the ways in which we are able to access this data.
+The next sections take a look at the ways in which we are able to access this data.
 
 \subsection{Relevant parts of the Twitter API} % (fold)
 \label{sub:relevant_parts_of_the_twitter_api}
 
 The various endpoints in the Twitter REST API is divided into 16 categories, spanning everything from search and user timelines to suggested users to follow and spam reporting. A full overview of the available API endpoints is available on Twitter's REST API pages\footnote{\url{https://dev.twitter.com/docs/api/1.1}}.
 
-Of these, only two categories are of relevance, namely \emph{Search} and \emph{OAuth}.
+Of these, only two categories are of relevance to this project, namely \emph{Search} and \emph{OAuth}. The OAuth parts of the API are only relevant as they enable us to search and won't be described any further.
 
-OAuth is only relevant because it enables us to search, so we won't elaborate further on how we use it.
-
-\subsubsection{The Twitter search API}
+\subsection{The Twitter search API}
 \label{ssec:search_api}
 
 The Twitter search API\footnote{\url{https://dev.twitter.com/docs/api/1.1/get/search/tweets}} is a JSON-based REST API, and it takes the following notable parameters:
@@ -60,28 +60,34 @@ The Twitter search API\footnote{\url{https://dev.twitter.com/docs/api/1.1/get/se
 
 In addition, there are parameters to control the number of messages returned, language, date ranges etc.
 
-The \texttt{q} parameter, the search query, is obviously of great importance, as it is the one we primarily will be using to target our search.
+\subsubsection{The query parameter}
 
-The \texttt{q} parameter supports a wide range of operators.\footnote{The full list is available here: \url{https://dev.twitter.com/docs/using-search}} It supports the typical boolean operators (AND, OR, and NOT), as well as specifying exact search phrases, but it also supports more domain-specific operators:
+The \texttt{q} parameter, the search query, is obviously of great importance, as it is the one we primarily will be using to target our search. Apart from the typical boolean operators (AND, OR, and NOT), and the specifying of exact search phrases, it supports the following more domain-specific operators\footnote{A full list of supported operators is available here: \url{https://dev.twitter.com/docs/using-search}}:
 
 \begin{description}
   \item[From/to/referencing user] \hfill \\
-    Only return messages from or to a specific user, or simply mentioning a specific user somewhere in its message.
+    Only return messages from or to a specific user, or that simply mention a specific user somewhere in its message.
   \item[Date ranges] \hfill \\
     Support for ``since'' and ``until'' constraints.
   \item[Other] \hfill \\
-    Support for things like only returning messages with links, messages submitted via a specific client type, and messages asking a question.
+    Support for things like only returning messages with links, messages submitted via specific client types, and messages asking a question.
 \end{description}
 
-All operators can be combined, and the regular space serves as an AND clause in this regard.
+All operators can be combined, and delimiting them by a regular space character serves as an AND clause.
 
-In addition to the aforementioned operators, the API supports returning tweets matching either a positive or negative sentiment -- a feature which should seem very relevant to the task at hand. However, no information was seemingly available on the mechanics behind it, and after some manual testing it was concluded that it also lacked quite severely in its precision.
+In addition to the aforementioned operators, the API supports returning tweets matching either a positive or negative sentiment -- a feature which should seem very relevant to the task at hand. However, no information was seemingly available on the mechanics behind it, and after some manual testing it was concluded that it also lacked in its precision.
 
-The other parameter central to our application is the \texttt{result\_type}. It allows us to switch between three possible heuristics for which results that are returned from the search. We have the choice between three valid values: \texttt{recent}, \texttt{popular}, or \texttt{mixed} tweets -- the latter being a combination of the first two, and also the default.
+\subsubsection{The result type parameter}
+
+The other parameter central to our application is the \texttt{result\_type}. It allows us to switch between three possible heuristics for determining which results are returned from the search. We have the choice between three valid values: \texttt{recent}, \texttt{popular}, or \texttt{mixed} -- the latter being a combination of the first two, and also the default.
 
 To know which one to choose, we need to know what constitutes a popular tweet.
 
-\subsubsection{What constitutes a popular Tweet?}
+% subsection relevant_parts_of_the_twitter_api (end)
+
+
+\subsection{What constitutes a popular Tweet?}
+\label{sub:popular_tweets}
 
 On Twitter, there are several ways of interacting with the system. Terms like ``follow'', ``mention'', ``favorite'', and ``retweet'' are all more or less domain-specific to Twitter, so before moving on -- let's break them down.
 
@@ -98,20 +104,6 @@ On Twitter, there are several ways of interacting with the system. Terms like ``
 
 One of the greatest benefits of Twitter as a data source is that all these interactions are completely transparent\footnote{Users can make their own content ``private'', but their interactions with other users' non-private content are nonetheless public.}, and can thus be used freely when querying for popular content.
 
-% subsection relevant_parts_of_the_twitter_api (end)
-
-\subsection{Novelty of available data} % (fold)
-\label{sub:novelty_of_available_data}
-
-As briefly mentioned, part of the hypothesis is that Twitter data is usable for predicting ratings for new content, where collaborative filtering systems perform worse than otherwise.
-
-Novelty, however, is an inherently fundamental quality of Twitter data, even as a data source.
-The Twitter search API simply does not expose data more than about a week old.
-As it is put in their search API guidelines as of December 2013~\cite{UsingTwitterSearchAPI}, ``The Search API is not complete index of all Tweets, but instead an index of recent Tweets. At the moment that index includes between 6-9 days of Tweets.''
-
-This quality makes Twitter data less than useful when it comes to predicting ratings for movies old enough to have calmed in public debate -- a category which, not surprisingly, includes the vast majority of available movies.
-
-% subsection novelty_of_available_data (end)
 
 \subsection{Twitter as a Data Source} % (fold)
 \label{sub:twitter_as_a_data_source}
@@ -122,6 +114,19 @@ We will return to the issue of noise in chapter~\ref{sec:evaluation_metrics}, wh
 
 This problem of finding content carrying relevant information turns out to perhaps be the biggest challenge of the entire study.
 
+\subsubsection{Novelty of available data} % (fold)
+\label{sub:novelty_of_available_data}
+
+As briefly mentioned, part of the hypothesis is that Twitter data is usable for predicting ratings for new content, where collaborative filtering systems perform worse than otherwise.
+
+Novelty, however, is an inherently fundamental quality of Twitter data, even as a data source.
+The Twitter search API simply does not expose data more than about a week old.
+As it is put in their search API guidelines as of December 2013~\cite{UsingTwitterSearchAPI}, ``The Search API is not [a] complete index of all Tweets, but instead an index of recent Tweets. At the moment that index includes between 6-9 days of Tweets.''
+
+This quality makes Twitter data less than useful when it comes to predicting ratings for movies old enough to have calmed in public debate -- a category which, not surprisingly, includes the vast majority of available movies.
+
+% subsection novelty_of_available_data (end)
+
 % subsection twitter_as_a_data_source (end)
 
 % section twitter_data (end)
@@ -129,9 +134,11 @@ This problem of finding content carrying relevant information turns out to perha
 \section{The sentiment classifier} % (fold)
 \label{sec:the_sentiment_classifier}
 
-Much has already been written on the topic of sentiment analysis of Twitter data~\cite{go2009twitter, go2009twitterdistant, pak2010twitter, agarwal2011sentiment, kouloumpis2011twitter}. This paper, however, is not about improving or analyzing these methods and techniques. What is required is a technique that is good enough to \emph{indicate} the sentiment of \emph{a set of messages}.
+Much has already been written on the topic of sentiment analysis of Twitter data~\cite{go2009twitter, go2009twitterdistant, pak2010twitter, agarwal2011sentiment, kouloumpis2011twitter}. This paper, however, is not specifically about improving or analyzing these methods and techniques. What is required is a technique that is good enough to \emph{indicate} the sentiment of \emph{a set of messages}.
 
 For sentiment analysis, I have therefore selected the Twitter sentiment classifier provided by DatumBox, a machine learning SaaS. They provide a broad suite of services within many fields of machine learning. See figure~\ref{fig:datumbox_api} for an overview of their current functionality within the document classification category\footnote{The complete list is currently available at \url{http://www.datumbox.com/api-sandbox/}.}.
+
+Naive Bayes classifiers in general, as well as details regarding the DatumBox implementation, are described in section~\ref{sec:sentiment_analysis_impl}.
 
 \begin{figure}[h]
   \centering
@@ -140,15 +147,13 @@ For sentiment analysis, I have therefore selected the Twitter sentiment classifi
   \label{fig:datumbox_api}
 \end{figure}
 
-Naive Bayes classifiers in general, as well as details regarding the DatumBox implementation, are described in section~\ref{sec:sentiment_analysis_impl}.
-
 \subsection{Alternative approaches}
 
-Two of the most relevant alternatives to the Naive Bayes, SVM and Max Entropy, are also perfectly capable of performing sentiment classification. This section will describe them briefly, with emphasis on how they perform the sentiment classification task. This is well described in the literature~\cite{pang2002thumbs}, so this survey will not go into great detail.
+Two of the most relevant alternatives to the Naive Bayes are SVM and Max Entropy. They are also perfectly capable of performing sentiment classification, and this section will describe them briefly with emphasis on how they perform this task. This is well described in the literature~\cite{pang2002thumbs}, so this survey will not go into great detail.
 
 Max Entropy has been shown to perform several text classification tasks often better than the Naive Bayes, but it also sometimes performs worse~\cite{Nigam99usingmaximum}. The underlying principle of maximum entropy is that without further knowledge, uniform distributions should always be preferred. Training data lay constraints on the distribution, and let us know where the most uniform solutions are.
 
-A Support Vector Machine (SVM) is a large-margin classifier, as opposed to both Naive Bayes and Max Entropy's probabilistic approaches. For a typical two-category case, classifying documents as either positive or negative, SVM attempts to find a hyperplane represented by a vector $\vec{\sigma}$ which not only separates the document vectors $\vec{d}$ of one class from the other, but which also maximizes this margin.
+A Support Vector Machine (SVM) is a large-margin classifier, as opposed to both Naive Bayes and Max Entropy's probabilistic approaches. For a typical two-category case, classifying documents as either positive or negative, SVM attempts to find a hyperplane represented by a vector $\vec{\omega}$ which not only separates the document vectors $\vec{d}$ of one class from the other, but which also maximizes this margin.
 
 Since none of these approaches are particularly dominant in the literature, the simplest solution -- the Naive Bayes classifier provided to us through the DatumBox API -- was chosen.
 
@@ -167,9 +172,9 @@ The accompanying Readme file descibes the dataset in the following way:
   scale from 1 to 5 (integral) stars.
 \end{quote}
 
-The data used in this work consists of two different types of files.
+The data used in this work are in two different types of files: one movie metadata file, and many rating files.
 
-First, an overview of available movies is available in CSV format, with lines containing the following fields:
+The movie metadata file contains an overview of the available movies in CSV format, with lines consisting of the following fields:
 
 \begin{enumerate}
   \item Movie ID
@@ -187,4 +192,4 @@ In a separate directory, 17770 files named by their associated movie ID contain 
 
 Unfortunately, the Netflix rating dataset is no longer publicly available, allegedly due to a lawsuit regarding privacy concerns\footnote{\url{http://www.wired.com/threatlevel/2009/12/netflix-privacy-lawsuit/}}.
 
-For more details on how the data was used to evaluate results, please see chapter~\ref{Chapter5}.
+For more details on how the data was used to evaluate results, see chapter~\ref{Chapter5}.
