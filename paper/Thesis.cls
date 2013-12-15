@@ -182,13 +182,13 @@
 %	defined as \examname above so you cite it as \examname
 %----------------------------------------------------------------------------------------
 
-\thesistitle{Improving Movie Recommendations with Unpersonal Social Media Data} % Your thesis title - this is used in the title and abstract
+\thesistitle{Better Movie Recommendations with Twitter Data} % Your thesis title - this is used in the title and abstract
 %-------------------------------------------------  
 \supervisor{Prof. Heri \textsc{Ramampiaro} \\Prof. Helge \textsc{Langseth}} % You supervisor's name - this is used in the title page
 %-------------------------------------------------   
 \examiner{} % Your examiner's name - this is not currently used anywhere in the template, cite it with \examname if you want it
 %-------------------------------------------------   
-\degree{Master of Technology} % Your degree name - this is currently used in the title page and abstract
+\degree{Master of Science in Computer Science} % Your degree name - this is currently used in the title page and abstract
 %-------------------------------------------------   
 \authors{Jonas \textsc{Myrlund}} % Your name - this is used in the title page and abstract
 %-------------------------------------------------   

@@ -69,7 +69,7 @@
 \begin{center}
 
 \textsc{\LARGE \univname}\\[1.5cm] % University name
-\textsc{\Large Project Thesis}\\[0.5cm] % Thesis type
+\textsc{\Large TDT4501 Computer Science, Specialization Project}\\[0.5cm] % Thesis type
 
 \HRule \\[0.4cm] % Horizontal line
 {\huge \bfseries \ttitle}\\[0.4cm] % Thesis title
@@ -129,23 +129,23 @@
 % 
 % \clearpage % Start a new page
 
-% %----------------------------------------------------------------------------------------
-% %  QUOTATION PAGE
-% %----------------------------------------------------------------------------------------
-% 
-% \pagestyle{empty} % No headers or footers for the following pages
-% 
-% \null\vfill % Add some space to move the quote down the page a bit
-% 
-% \textit{``Thanks to my solid academic training, today I can write hundreds of words on virtually any topic without possessing a shred of information, which is how I got a good job in journalism."}
-% 
-% \begin{flushright}
-% Dave Barry
-% \end{flushright}
-% 
-% \vfill\vfill\vfill\vfill\vfill\vfill\null % Add some space at the bottom to position the quote just right
-% 
-% \clearpage % Start a new page
+%----------------------------------------------------------------------------------------
+%  QUOTATION PAGE
+%----------------------------------------------------------------------------------------
+
+\pagestyle{empty} % No headers or footers for the following pages
+
+\null\vfill % Add some space to move the quote down the page a bit
+
+\textit{\Large{``just setting up my twttr"}}
+
+\begin{flushright}
+The first Tweet ever, by Jack Dorsey on March 21, 2006
+\end{flushright}
+
+\vfill\vfill\vfill\vfill\vfill\vfill\null % Add some space at the bottom to position the quote just right
+
+\clearpage % Start a new page
 
 %----------------------------------------------------------------------------------------
 %	ABSTRACT PAGE
@@ -155,13 +155,7 @@
 
 \abstract{\addtocontents{toc}{\vspace{1em}} % Add a gap in the Contents, for aesthetics
 
-This is a project thesis about movie recommendations, specifically answering the question: \emph{can movie recommendations be significantly improved by unpersonal social media data?}
-We look at how we can improve a set of recommendations -- through filtering and annotation -- by analyzing \emph{the sentiment in social media}.
-By selecting a set of movies, and comparing the results to those found in open movie rating datasets, we consider whether the sentiment extracted from social media is of significant use in improving movie recommendations.
-
-@TODO What do we find???
-
-% The term ``copious data'' is used to emphasize the point that big-scale trends, public sentiment, and hype are the factors being examined; we do not delve into the realm of personalized recommendations. However
+@TODO
 
 }
 
@@ -175,7 +169,9 @@ By selecting a set of movies, and comparing the results to those found in open m
 
 \acknowledgements{\addtocontents{toc}{\vspace{1em}} % Add a gap in the Contents, for aesthetics
 
-@TODO: Acknowlegde.
+I would like to thank my supervisors, Heri Ramampiaro and Helge Langseth, for lots of good advice, while at the same time allowing me a great extent of freedom in planning and executing this project.
+
+I would also like to thank the people behind the DatumBox service, who made this project a joy to implement.
 
 }
 \clearpage % Start a new page
@@ -206,25 +202,25 @@ By selecting a set of movies, and comparing the results to those found in open m
 \lhead{\emph{Abbreviations}} % Set the left side page header to "Abbreviations"
 \listofsymbols{ll} % Include a list of Abbreviations (a table of two columns)
 {
-\textbf{MSE} & \textbf{M}ean \textbf{S}quare \textbf{E}rror \\
+\textbf{MAE} & \textbf{M}ean \textbf{A}verage \textbf{E}rror \\
+\textbf{RMSE} & \textbf{R}oot \textbf{M}ean \textbf{S}quare \textbf{E}rror \\
 \textbf{SaaS} & \textbf{S}oftware \textbf{a}s \textbf{a} \textbf{S}ervice \\
-\textbf{SNS} & \textbf{S}ocial \textbf{N}etwork \textbf{S}ervice \\
 \textbf{SVM} & \textbf{S}upport \textbf{V}ector \textbf{M}achine \\
 }
 
 %----------------------------------------------------------------------------------------
 %  PHYSICAL CONSTANTS/OTHER DEFINITIONS
 %----------------------------------------------------------------------------------------
-
-\clearpage % Start a new page
-
-\lhead{\emph{Glossary}} % Set the left side page header to "Physical Constants"
-
-\listofwords{ll} % Include a list of Physical Constants (a four column table)
-{
-\textbf{Tweet}    & A Twitter message \\
-\textbf{DatumBox} & A machine learning SaaS \\
-}
+% 
+% \clearpage % Start a new page
+% 
+% \lhead{\emph{Glossary}} % Set the left side page header to "Physical Constants"
+% 
+% \listofwords{ll} % Include a list of Physical Constants (a four column table)
+% {
+% \textbf{Tweet}    & A Twitter message \\
+% \textbf{DatumBox} & A machine learning SaaS \\
+% }
 
 % %----------------------------------------------------------------------------------------
 % %  SYMBOLS
